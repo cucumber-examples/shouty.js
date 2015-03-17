@@ -1,0 +1,26 @@
+{
+  "name": "Shouty",
+  "version": "1.0.0",
+  "description": "Shouty exercise in JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:cucumber-ltd/shouty.js.git"
+  },
+  "keywords": [
+    "shouty",
+    "bdd",
+    "cucumber"
+  ],
+  "author": "Julien Biezemans",
+  "bugs": {
+    "url": "https://github.com/cucumber-ltd/shouty.js/issues"
+  },
+  "homepage": "https://github.com/cucumber-ltd/shouty.js",
+  "devDependencies": {
+    "cucumber": "^0.4.8"
+  }
+}
