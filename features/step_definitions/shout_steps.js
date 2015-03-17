@@ -1,15 +1,14 @@
-module.exports = function () {
-  var lucy, sean;
+var Shouty = require('../../lib/shouty');
+var Network = Shouty.Network;
+var Person = Shouty.Person;
 
-  function Person() {
-    this.lastHeardMessage = "Free Guinness!";
-    this.shout = function (message) {
-    };
-  }
+module.exports = function () {
+  var network, lucy, sean;
 
   this.Given(/^Lucy is (\d+)ft away from Sean$/, function (distance, callback) {
-    lucy = new Person();
-    sean = new Person();
+    network = new Network();
+    lucy = new Person(network);
+    sean = new Person(network);
     callback();
   });
 
@@ -20,7 +19,8 @@ module.exports = function () {
 
   this.Then(/^Lucy should hear "([^"]*)"$/, function (message, callback) {
     if (lucy.lastHeardMessage !== message) {
-      callback(new Error("Lucy didn't hear the message"));
+      var error = new Error('Expected Lucy to hear: "' + message + '", but she heard: "' + lucy.lastHeardMessage + '"');
+      callback(error);
     } else {
       callback();
     }
