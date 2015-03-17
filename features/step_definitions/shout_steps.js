@@ -6,9 +6,10 @@ module.exports = function () {
   var network, lucy, sean;
 
   this.Given(/^Lucy is (\d+)ft away from Sean$/, function (distance, callback) {
+    var lucyPosition = parseInt(distance);
     network = new Network();
-    lucy = new Person(network);
-    sean = new Person(network);
+    sean = new Person(network, 0);
+    lucy = new Person(network, lucyPosition);
     callback();
   });
 
@@ -26,4 +27,12 @@ module.exports = function () {
     }
   });
 
+  this.Then(/^Lucy should not hear "([^"]*)"$/, function (message, callback) {
+    if (lucy.lastHeardMessage === message) {
+      var error = new Error('Expected Lucy not to hear: "' + message + '", but she heard it');
+      callback(error);
+    } else {
+      callback();
+    }
+  });
 };

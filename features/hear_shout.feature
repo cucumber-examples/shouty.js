@@ -21,3 +21,8 @@ Feature: Hear Shout
     Given Lucy is 800ft away from Sean
     When Sean shouts "Free Bagels!"
     Then Lucy should hear "Free Bagels!"
+
+  Scenario: The one where lucy is NOT in the zone
+    Given Lucy is 1001ft away from Sean
+    When Sean shouts "Free Sandwiches!"
+    Then Lucy should not hear "Free Sandwiches!"
