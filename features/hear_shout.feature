@@ -14,20 +14,20 @@ Feature: Hear Shout
 
   Scenario: The one where Lucy is in the zone
     Given Lucy is 800ft away from Sean
-    When Sean shouts "Free Guinness!"
-    Then Lucy should hear "Free Guinness!"
-
-  Scenario: The one where Lucy is in the zone
-    Given Lucy is 800ft away from Sean
-    When Sean shouts "Free Bagels!"
-    Then Lucy should hear "Free Bagels!"
+    When Sean shouts a message
+    Then Lucy should hear that message
 
   Scenario: The one where lucy is NOT in the zone
     Given Lucy is 1001ft away from Sean
-    When Sean shouts "Free Sandwiches!"
-    Then Lucy should not hear "Free Sandwiches!"
+    When Sean shouts a message
+    Then Lucy should not hear that message
 
   Scenario: The one where I type a short message
     Given Lucy is 800ft away from Sean
     When Sean shouts a 130-character message
     Then Lucy should hear that message
+
+  Scenario: The one where I type a long message
+    Given Lucy is 800ft away from Sean
+    When Sean shouts a 140-character message
+    Then Lucy should not hear that message

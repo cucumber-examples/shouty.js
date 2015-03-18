@@ -14,8 +14,9 @@ module.exports = function () {
     callback();
   });
 
-  this.When(/^Sean shouts "([^"]*)"$/, function (message, callback) {
-    this.sean.shout(message);
+  this.When(/^Sean shouts a message$/, function (callback) {
+    this.message = "blah blah";
+    this.sean.shout(this.message);
     callback();
   });
 
@@ -26,15 +27,11 @@ module.exports = function () {
     callback();
   });
 
-  this.Then(/^Lucy should hear "([^"]*)"$/, function (message, callback) {
-    this.assertLucyHeardMessage(message, callback);
-  });
-
-  this.Then(/^Lucy should not hear "([^"]*)"$/, function (message, callback) {
-    this.assertLucyDidNotHearMessage(message, callback);
-  });
-
   this.Then(/^Lucy should hear that message$/, function (callback) {
     this.assertLucyHeardMessage(this.message, callback);
+  });
+
+  this.Then(/^Lucy should not hear that message$/, function (callback) {
+    this.assertLucyDidNotHearMessage(this.message, callback);
   });
 };
