@@ -26,3 +26,8 @@ Feature: Hear Shout
     Given Lucy is 1001ft away from Sean
     When Sean shouts "Free Sandwiches!"
     Then Lucy should not hear "Free Sandwiches!"
+
+  Scenario: The one where I type a short message
+    Given Lucy is 800ft away from Sean
+    When Sean shouts a 130-character message
+    Then Lucy should hear that message
