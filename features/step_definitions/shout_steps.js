@@ -27,11 +27,22 @@ module.exports = function () {
     callback();
   });
 
+  this.When(/^Sean shouts multiple messages$/, function (callback) {
+    this.messages = ["Free bagels!", "Free gherkins!"];
+    this.sean.shout(this.messages[0]);
+    this.sean.shout(this.messages[1]);
+    callback();
+  });
+
   this.Then(/^Lucy should hear that message$/, function (callback) {
     this.assertLucyHeardMessage(this.message, callback);
   });
 
   this.Then(/^Lucy should not hear that message$/, function (callback) {
     this.assertLucyDidNotHearMessage(this.message, callback);
+  });
+
+  this.Then(/^Lucy should hear those messages$/, function (callback) {
+    this.assertLucyHeardMessages(this.messages, callback);
   });
 };

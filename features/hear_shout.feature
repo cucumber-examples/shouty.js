@@ -31,3 +31,8 @@ Feature: Hear Shout
     Given Lucy is 800ft away from Sean
     When Sean shouts a 140-character message
     Then Lucy should not hear that message
+
+  Scenario: The one where Lucy hears several messages from Sean
+    Given Lucy is 800ft away from Sean
+    When Sean shouts multiple messages
+    Then Lucy should hear those messages
