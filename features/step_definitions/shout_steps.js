@@ -15,31 +15,30 @@ module.exports = function () {
   });
 
   this.When(/^Sean shouts a message$/, function (callback) {
-    this.message = "blah blah";
-    this.sean.shout(this.message);
+    this.messages = ["blah blah"];
+    this.sean.shout(this.messages[0]);
     callback();
   });
 
   this.When(/^Sean shouts a (\d+)\-character message$/, function (length, callback) {
     length = parseInt(length) + 1;
-    this.message = new Array(length).join('X');
-    this.sean.shout(this.message);
+    var message = new Array(length).join('X');
+    this.makeSeanShout(message);
     callback();
   });
 
   this.When(/^Sean shouts multiple messages$/, function (callback) {
-    this.messages = ["Free bagels!", "Free gherkins!"];
-    this.sean.shout(this.messages[0]);
-    this.sean.shout(this.messages[1]);
+    this.makeSeanShout("Free bagels!");
+    this.makeSeanShout("Free gherkins!");
     callback();
   });
 
   this.Then(/^Lucy should hear that message$/, function (callback) {
-    this.assertLucyHeardMessage(this.message, callback);
+    this.assertLucyHeardMessages(this.messages, callback);
   });
 
   this.Then(/^Lucy should not hear that message$/, function (callback) {
-    this.assertLucyDidNotHearMessage(this.message, callback);
+    this.assertLucyDidNotHearMessage(this.messages[0], callback);
   });
 
   this.Then(/^Lucy should hear those messages$/, function (callback) {

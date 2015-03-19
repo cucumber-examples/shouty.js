@@ -3,9 +3,11 @@ var expect = chai.expect;
 
 module.exports = {
   ShoutyWorld: function ShoutyWorld(callback) {
-    this.assertLucyHeardMessage = function (message, callback) {
-      expect(this.lucy.lastHeardMessage).to.equal(message);
-      callback();
+    this.messages = [];
+
+    this.makeSeanShout = function (message) {
+      this.messages.push(message);
+      this.sean.shout(message);
     };
 
     this.assertLucyDidNotHearMessage = function (message, callback) {
