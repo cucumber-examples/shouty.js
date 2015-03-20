@@ -1,7 +1,9 @@
-var ShoutyWorld = require('../support/world').ShoutyWorld;
+var World = require('../support/world');
 
 module.exports = function () {
-  this.World = ShoutyWorld;
+  var worldType = (process.env.WORLD === 'web' ? 'WebWorld' : 'DomainWorld');
+  console.log(World, worldType);
+  this.World = World[worldType];
 
   this.Given(/^Lucy is (\d+)ft away from Sean$/, function (distance, callback) {
     var lucyPosition = parseInt(distance);
