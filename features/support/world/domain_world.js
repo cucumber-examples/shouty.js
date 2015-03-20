@@ -9,17 +9,17 @@ module.exports = {
   DomainWorld: function DomainWorld(callback) {
     this.messages = [];
 
-    this.startShouty = function () {
-      this.network = new Network();
-    };
+    this.network = new Network();
 
-    this.registerPerson = function (name, position) {
+    this.registerPerson = function (name, position, callback) {
       this[name] = new Person(this.network, 0);
+      callback();
     };
 
-    this.makeSeanShout = function (message) {
+    this.makeSeanShout = function (message, callback) {
       this.messages.push(message);
       this.sean.shout(message);
+      callback();
     };
 
     this.assertLucyDidNotHearMessage = function (message, callback) {
@@ -35,6 +35,7 @@ module.exports = {
       callback();
     };
 
+    this.destroy = function (callback) { callback(); };
     callback();
   }
 };

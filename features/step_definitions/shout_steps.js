@@ -2,33 +2,38 @@ var World = require('../support/world');
 
 module.exports = function () {
   var worldType = (process.env.WORLD === 'web' ? 'WebWorld' : 'DomainWorld');
-  console.log(World, worldType);
   this.World = World[worldType];
 
+  this.After(function (callback) {
+    this.destroy(callback);
+  });
+
   this.Given(/^Lucy is (\d+)ft away from Sean$/, function (distance, callback) {
+    var self = this;
+
     var lucyPosition = parseInt(distance);
-    this.startShouty();
-    this.registerPerson("sean", 0);
-    this.registerPerson("lucy", lucyPosition);
-    callback();
+    self.registerPerson("sean", 0, function (err) {
+      if (err) return callback(err);
+      self.registerPerson("lucy", lucyPosition, callback);
+    });
   });
 
   this.When(/^Sean shouts a message$/, function (callback) {
-    this.makeSeanShout("Blah blah");
-    callback();
+    this.makeSeanShout("Blah blah", callback);
   });
 
   this.When(/^Sean shouts a (\d+)\-character message$/, function (length, callback) {
     length = parseInt(length) + 1;
     var message = new Array(length).join('X');
-    this.makeSeanShout(message);
-    callback();
+    this.makeSeanShout(message, callback);
   });
 
   this.When(/^Sean shouts multiple messages$/, function (callback) {
-    this.makeSeanShout("Free bagels!");
-    this.makeSeanShout("Free gherkins!");
-    callback();
+    var self = this;
+    self.makeSeanShout("Free bagels!", function (err) {
+      if (err) return callback(err);
+      self.makeSeanShout("Free gherkins!", callback);
+    });
   });
 
   this.Then(/^Lucy should hear that message$/, function (callback) {

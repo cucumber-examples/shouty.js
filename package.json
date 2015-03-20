@@ -2,7 +2,7 @@
   "name": "Shouty",
   "version": "1.0.0",
   "description": "Shouty exercise in JavaScript",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "cucumber.js"
   },
@@ -22,6 +22,14 @@
   "homepage": "https://github.com/cucumber-ltd/shouty.js",
   "devDependencies": {
     "chai": "^2.1.2",
-    "cucumber": "^0.4.8"
+    "cucumber": "^0.4.8",
+    "selenium-launcher": "^1.1.11",
+    "selenium-webdriver": "^2.45.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.12.2",
+    "express": "^4.12.3",
+    "jade": "^1.9.2",
+    "server-destroy": "^1.0.0"
   }
 }

@@ -1,0 +1,15 @@
+html
+  head
+    title Shouty
+  body
+    h1 Hello, #{ name }
+    p You are currently at coordinate <em>#{position}<em>.
+    form(action="/shout" method="post")
+      label(for="message") Message to shout:
+      input(type="hidden" name="name" value=name)
+      input(type="hidden" name="position" value=position)
+      input(name="message")
+      button(name="shout") Shout
+    ul
+      each message in messages
+        li= message
