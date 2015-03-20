@@ -1,6 +1,3 @@
-var Shouty = require('../../lib/shouty');
-var Network = Shouty.Network;
-var Person = Shouty.Person;
 var ShoutyWorld = require('../support/world').ShoutyWorld;
 
 module.exports = function () {
@@ -8,15 +5,14 @@ module.exports = function () {
 
   this.Given(/^Lucy is (\d+)ft away from Sean$/, function (distance, callback) {
     var lucyPosition = parseInt(distance);
-    this.network = new Network();
-    this.sean = new Person(this.network, 0);
-    this.lucy = new Person(this.network, lucyPosition);
+    this.startShouty();
+    this.registerPerson("sean", 0);
+    this.registerPerson("lucy", lucyPosition);
     callback();
   });
 
   this.When(/^Sean shouts a message$/, function (callback) {
-    this.messages = ["blah blah"];
-    this.sean.shout(this.messages[0]);
+    this.makeSeanShout("Blah blah");
     callback();
   });
 
