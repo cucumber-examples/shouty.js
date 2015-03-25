@@ -4,8 +4,8 @@
   "description": "Shouty exercise in JavaScript",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber.js --no-snippets && jasmine-node spec",
-    "autospec": "jasmine-node --autotest --watch . --color spec"
+    "test": "cucumber.js --no-snippets && mocha -c spec",
+    "autospec": "mocha --watch -c spec"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,10 @@
   },
   "homepage": "https://github.com/cucumber-ltd/shouty.js",
   "devDependencies": {
+    "chai": "^2.1.2",
     "cucumber": "^0.4.8",
-    "jasmine-node": "^1.14.5"
+    "mocha": "^2.2.1",
+    "sinon": "^1.14.1",
+    "sinon-chai": "^2.7.0"
   }
 }

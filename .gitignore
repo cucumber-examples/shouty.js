@@ -1,1 +1,10 @@
+.DS_Store
 node_modules
+*~
+.#*
+.rvmrc
+.ruby-*
+doc/
+tmp/
+npm-debug.log
+.idea
