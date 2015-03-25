@@ -5,9 +5,17 @@ var expect = chai.expect;
 chai.use(sinonChai);
 
 var Shouty = require('../lib/shouty');
+var Network = Shouty.Network;
 var Person = Shouty.Person;
 
 describe("Shouty", function () {
+
+  describe("Network", function () {
+    it("can be instantiated", function () {
+      var network = new Network;
+      expect(network).to.be.instanceof(Network);
+    });
+  });
 
   describe("Person", function () {
     var person, network;
