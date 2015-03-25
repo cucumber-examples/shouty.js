@@ -11,3 +11,8 @@ Feature: Hear Shout
 
   * Lucy the listener.
   * Sean the shouter.
+
+  Scenario: Lucy hears Sean
+    Given Lucy is 800m away from Sean
+    When Sean shouts "Free espressos!"
+    Then Lucy should hear "Free espressos!"
