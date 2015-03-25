@@ -11,9 +11,24 @@ var Person = Shouty.Person;
 describe("Shouty", function () {
 
   describe("Network", function () {
+    var network;
+
+    beforeEach(function () {
+      network = new Network;
+    });
+
     it("can be instantiated", function () {
-      var network = new Network;
       expect(network).to.be.instanceof(Network);
+    });
+
+    describe("#broadcast", function () {
+
+      it("calls back", function () {
+        var callback = sinon.spy();
+        network.broadcast("some message", callback);
+        expect(callback).to.have.been.called;
+      });
+
     });
   });
 
