@@ -11,5 +11,3 @@ Feature: Hear Shout
 
   * Lucy the listener.
   * Sean the shouter.
-
-  Scenario:

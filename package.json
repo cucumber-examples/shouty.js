@@ -4,7 +4,8 @@
   "description": "Shouty exercise in JavaScript",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber.js"
+    "test": "cucumber.js --no-snippets && jasmine-node spec",
+    "autospec": "jasmine-node --autotest --watch . --color spec"
   },
   "repository": {
     "type": "git",
