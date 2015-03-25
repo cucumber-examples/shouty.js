@@ -10,10 +10,11 @@ var Person = Shouty.Person;
 describe("Shouty", function () {
 
   describe("Person", function () {
-    var person;
+    var person, network;
 
     beforeEach(function () {
-      person = new Person();
+      network = { broadcast: sinon.spy() };
+      person = new Person(network);
     });
 
     it("can be instantiated", function () {
@@ -29,13 +30,11 @@ describe("Shouty", function () {
     });
 
     describe("#shout", function () {
-
-      it("calls back", function () {
+      it("tells the network to broadcast the message", function () {
         var callback = sinon.spy();
         person.shout("some message", callback);
-        expect(callback).to.have.been.called;
+        expect(network.broadcast).to.have.been.calledWith("some message", callback);
       });
-
     });
 
   });
