@@ -10,10 +10,24 @@ var Person = Shouty.Person;
 describe("Shouty", function () {
 
   describe("Person", function () {
+    var person;
+
+    beforeEach(function () {
+      person = new Person();
+    });
 
     it("can be instantiated", function () {
-      var person = new Person();
       expect(person).to.be.instanceof(Person);
+    });
+
+    describe("#shout", function () {
+
+      it("calls back", function () {
+        var callback = sinon.spy();
+        person.shout("some message", callback);
+        expect(callback).to.have.been.called;
+      });
+
     });
 
   });
