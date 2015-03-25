@@ -20,6 +20,14 @@ describe("Shouty", function () {
       expect(person).to.be.instanceof(Person);
     });
 
+    describe("@heardMessages", function () {
+
+      it("contains the messages heard by the person", function () {
+        expect(person.heardMessages).to.include("Free espressos!");
+      });
+
+    });
+
     describe("#shout", function () {
 
       it("calls back", function () {
