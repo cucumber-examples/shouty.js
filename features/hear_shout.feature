@@ -16,3 +16,10 @@ Feature: Hear Shout
     Given Lucy is 800m away from Sean
     When Sean shouts "Free espressos!"
     Then Lucy should hear "Free espressos!"
+
+  Scenario: Lucy hears two messages from Sean
+    Given Lucy is 800m away from Sean
+    When Sean shouts "Free espressos!"
+    And Sean shouts "Free doppios!"
+    Then Lucy should hear "Free espressos!"
+    And Lucy should hear "Free doppios!"
