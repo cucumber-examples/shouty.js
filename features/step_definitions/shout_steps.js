@@ -1,15 +1,14 @@
 var chai = require('chai');
 var expect = chai.expect;
 
-var Shouty = require('../../lib/shouty');
-var Person = Shouty.Person;
-var Network = Shouty.Network;
+var World = require('../support/world');
 
 module.exports = function () {
+  this.World = World.DomainWorld;
+
   this.Given(/^Lucy is (\d+)m away from Sean$/, function (distance, callback) {
-    this.network = new Network();
-    this.sean = new Person(this.network);
-    this.lucy = new Person(this.network);
+    this.registerPerson('sean');
+    this.registerPerson('lucy');
     callback();
   });
 
