@@ -28,6 +28,14 @@ describe("Shouty", function () {
       });
     });
 
+    describe("#register", function () {
+      it("appends the person to the registered people list", function () {
+        var person = {};
+        network.register(person);
+        expect(network.people).to.include(person);
+      });
+    });
+
     describe("#broadcast", function () {
       var callback;
 
@@ -59,7 +67,7 @@ describe("Shouty", function () {
     var person, network;
 
     beforeEach(function () {
-      network = { broadcast: sinon.spy() };
+      network = { broadcast: sinon.spy(), register: sinon.spy() };
       person = new Person(network);
     });
 
@@ -67,10 +75,14 @@ describe("Shouty", function () {
       expect(person).to.be.instanceof(Person);
     });
 
+    it("registers itself onto the network", function () {
+      expect(network.register).to.have.been.calledWith(person);
+    });
+
     describe("@heardMessages", function () {
 
-      it("contains the messages heard by the person", function () {
-        expect(person.heardMessages).to.include("Free espressos!");
+      it("is an empty list of messages heard by the person", function () {
+        expect(person.heardMessages).to.deep.equal([]);
       });
 
     });
@@ -83,6 +95,12 @@ describe("Shouty", function () {
       });
     });
 
+    describe("#hear", function () {
+      it("appends the message to the list of heard messages", function () {
+        person.hear("a message");
+        expect(person.heardMessages).to.include("a message");
+      });
+    });
   });
 
 });
