@@ -10,6 +10,10 @@ module.exports = {
       this[name] = new Person(this.network);
     };
 
+    this.makePersonShout = function (name, message, callback) {
+      this[name].shout(message, callback);
+    };
+
     callback();
   }
 };

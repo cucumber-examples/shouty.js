@@ -13,7 +13,7 @@ module.exports = function () {
   });
 
   this.When(/^Sean shouts "([^"]*)"$/, function (message, callback) {
-    this.sean.shout(message, callback);
+    this.makePersonShout('sean', message, callback);
   });
 
   this.Then(/^Lucy should hear "([^"]*)"$/, function (message, callback) {
