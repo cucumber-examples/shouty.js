@@ -1,6 +1,3 @@
-var chai = require('chai');
-var expect = chai.expect;
-
 var World = require('../support/world');
 
 module.exports = function () {
@@ -17,7 +14,6 @@ module.exports = function () {
   });
 
   this.Then(/^Lucy should hear "([^"]*)"$/, function (message, callback) {
-    expect(this.lucy.heardMessages).to.include(message);
-    callback();
+    this.expectPersonToHaveHeard('lucy', message, callback);
   });
 };
