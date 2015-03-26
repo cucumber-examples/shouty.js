@@ -21,7 +21,30 @@ describe("Shouty", function () {
       expect(network).to.be.instanceof(Network);
     });
 
+
+    describe("@people", function () {
+      it("is an empty list of registered people", function () {
+        expect(network.people).to.deep.equal([]);
+      });
+    });
+
     describe("#broadcast", function () {
+      var callback;
+
+      beforeEach(function () {
+        network.people = [
+          { hear: sinon.spy() },
+          { hear: sinon.spy() }
+        ];
+        callback = sinon.spy();
+      });
+
+      it("sends the message to everyone on the network", function () {
+        network.broadcast("some message", callback);
+        network.people.forEach(function (person) {
+          expect(person.hear).to.have.been.calledWith("some message");
+        });
+      });
 
       it("calls back", function () {
         var callback = sinon.spy();
