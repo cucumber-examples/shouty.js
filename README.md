@@ -16,6 +16,11 @@ Git:
     git clone https://github.com/cucumber-ltd/shouty.js.git
     cd shouty.js
 
+Subversion:
+
+    svn checkout https://github.com/cucumber-ltd/shouty.js/trunk shouty.js
+    cd shouty.js
+
 Or simply [download](https://github.com/cucumber-ltd/shouty.js/releases) a zip or tarball.
 
 ### Set up environment
