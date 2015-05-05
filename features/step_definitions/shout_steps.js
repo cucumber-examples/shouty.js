@@ -3,8 +3,9 @@ var Shouty = require('../../lib/shouty');
 
 module.exports = function () {
   var locations = {
-    "St John's College": [1, 2],
-    "Balliol College": [1, 2]
+    "St John's College" : [51.756073,  -1.25904],
+    "Balliol College"   : [51.7550014, -1.2580754],
+    "Trafalgar Square"  : [51.508039,  -0.128069]
   };
   var shouty;
   var theShout;
