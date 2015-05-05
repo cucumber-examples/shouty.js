@@ -1,5 +1,6 @@
 var assert = require('assert');
 var Shouty = require('../../lib/shouty');
+var WebWorld = require('./web_world').WebWorld;
 
 module.exports = function () {
   var locations = {
@@ -9,12 +10,13 @@ module.exports = function () {
   };
   var theShout;
 
-  this.World = function (callback) {
+  function DomainWorld(callback) {
     // @jbpros - requiring a callback here is a bit weird.
     // I'd like to just say: this.World = Shouty;
     callback();
     return new Shouty();
   };
+  this.World = process.env.WORLD === 'web' ? WebWorld : DomainWorld;
 
   this.Given(/^"([^"]*)" is at "([^"]*)"$/, function (personName, locationName, callback) {
     var location = locations[locationName];
