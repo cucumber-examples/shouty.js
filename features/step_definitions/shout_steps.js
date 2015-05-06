@@ -7,7 +7,7 @@ module.exports = function () {
     return new Shouty();
   };
 
-  this.Given(/^"([^"]*)" is in "([^"]*)"$/, function (personName, address, callback) {
+  this.Given(/^"([^"]*)" is at "([^"]*)"$/, function (personName, address, callback) {
     var location = {
       "Mobilvägen 1"        : [55.7143279,13.1888218],
       "Lund Centralstation" : [55.708,13.1869]
