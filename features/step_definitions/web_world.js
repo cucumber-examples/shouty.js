@@ -1,6 +1,6 @@
-// @jbpros - I don't like that I have to use an artificial WebWorld property
-// here just to avoid the function being auto-run when cucumber runs.
-// I really want to say module.exports = function () {};
+var Browser = require('zombie');
+Browser.localhost('example.com', 3000);
+
 module.exports.WebWorld = function (callback) {
   this.personIsAt = function(personName, location) {
   };
