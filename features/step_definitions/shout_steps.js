@@ -15,9 +15,8 @@ module.exports = function () {
     this.personIsIn(person, location, callback);
   });
 
-  this.When(/^Bob shouts "([^"]*)"$/, function (arg1, callback) {
-    // Write code here that turns the phrase above into concrete actions
-    callback.pending();
+  this.When(/^"([^"]*)" shouts "([^"]*)"$/, function (person, message, callback) {
+    this.personShouts(person, message, callback);
   });
 
   this.Then(/^Alice should not hear anything$/, function (callback) {
