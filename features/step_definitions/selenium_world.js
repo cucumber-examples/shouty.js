@@ -6,7 +6,12 @@ module.exports.SeleniumWorld = function (callback) {
       .forBrowser('firefox')
       .build();
 
-    callback();
+    browser.get(
+      'http://localhost:3000/people/' +
+      personName +
+      '?lat=' + geoLocation[0] +
+      '&lot=' + geoLocation[1]
+    ).then(callback);
   };
 
   callback();
