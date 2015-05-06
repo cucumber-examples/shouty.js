@@ -4,7 +4,7 @@
   "description": "Shouty exercise in JavaScript",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber.js"
+    "test": "cucumber.js --format pretty"
   },
   "repository": {
     "type": "git",

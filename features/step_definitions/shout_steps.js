@@ -6,4 +6,22 @@ module.exports = function () {
     callback();
     return new Shouty();
   };
+
+  this.Given(/^"([^"]*)" is in "([^"]*)"$/, function (person, address, callback) {
+    var location = {
+      "Mobilvägen 1"        : [55.7143279,13.1888218],
+      "Lund Centralstation" : [55.708,13.1869]
+    }[address];
+    this.personIsIn(person, location, callback);
+  });
+
+  this.When(/^Bob shouts "([^"]*)"$/, function (arg1, callback) {
+    // Write code here that turns the phrase above into concrete actions
+    callback.pending();
+  });
+
+  this.Then(/^Alice should not hear anything$/, function (callback) {
+    // Write code here that turns the phrase above into concrete actions
+    callback.pending();
+  });
 };
