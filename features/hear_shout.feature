@@ -13,9 +13,10 @@ Feature: Hear Shout
     When "Bob" shouts "hello"
     Then "Alice" should not hear anything
 
-  @wip
   Scenario: Carl is 0.8 km away from Silvia
     Given "Carl" is at "Mobilvägen 1"
     And "Silvia" is at "Mobilvägen 3"
     When "Silvia" shouts "Where are you älskling"
     Then "Carl" should hear "Where are you älskling"
+
+  Scenario: Jonas shouts before his location is known
