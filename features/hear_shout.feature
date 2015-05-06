@@ -11,4 +11,4 @@ Feature: Hear Shout
     Given "Alice" is in "Mobilvägen 1"
     And "Bob" is in "Lund Centralstation"
     When "Bob" shouts "hello"
-    Then Alice should not hear anything
+    Then "Alice" should not hear anything

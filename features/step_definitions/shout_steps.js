@@ -19,8 +19,11 @@ module.exports = function () {
     this.personShouts(person, message, callback);
   });
 
-  this.Then(/^Alice should not hear anything$/, function (callback) {
-    // Write code here that turns the phrase above into concrete actions
-    callback.pending();
+  this.Then(/^"([^"]*)" should not hear anything$/, function (person, callback) {
+    this.messagesHeardBy(person, function (err, actualMessagesHeard) {
+      if(err) return callback(err);
+      assert.deepEqual(actualMessagesHeard, []);
+      callback();
+    });
   });
 };
