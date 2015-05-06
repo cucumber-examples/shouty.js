@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(grunt) {
-	grunt.initConfig({
+  grunt.initConfig({
     watch: {
       jshint: {
         files: [
@@ -12,8 +12,8 @@ module.exports = function(grunt) {
         ],
         tasks: ['shell']
       }
-  	},
-  	shell: {
+    },
+    shell: {
       options: {
         stderr: false
       },
@@ -23,8 +23,8 @@ module.exports = function(grunt) {
     }
   });
 
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-shell');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-shell');
 
-	grunt.registerTask('default', ['watch']);
+  grunt.registerTask('default', ['watch']);
 };
