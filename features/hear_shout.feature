@@ -6,6 +6,7 @@ Feature: Hear Shout
 
   Questions:
   - Do users need to be registered?
+  - Should we receive own messages?
 
   Scenario: Alice is 3.6 km away from Bob
     Given "Alice" is at "Mobilvägen 1"
