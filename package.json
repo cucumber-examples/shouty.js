@@ -15,7 +15,7 @@
     "bdd",
     "cucumber"
   ],
-  "author": "Julien Biezemans",
+  "author": "Cucumber Ltd",
   "bugs": {
     "url": "https://github.com/cucumber-ltd/shouty.js/issues"
   },
