@@ -20,24 +20,28 @@ module.exports = function () {
 
   this.Given(/^"([^"]*)" is at "([^"]*)"$/, function (personName, locationName, callback) {
     var location = locations[locationName];
-    this.personIsAt(personName, location);
-    callback();
+    this.personIsAt(personName, location, callback);
   });
 
   this.When(/^"([^"]*)" shouts$/, function (personName, callback) {
     theShout = "Anyone there?";
-    this.personShouts(personName, theShout);
-    callback();
+    this.personShouts(personName, theShout, callback);
   });
 
   this.Then(/^"([^"]*)" hears the shout$/, function (personName, callback) {
-    assert.deepEqual(this.messagesHeardBy(personName), [theShout]);
-    callback();
+    this.messagesHeardBy(personName, function (err, messages) {
+      if(err) return callback(err);
+      assert.deepEqual(messages, [theShout]);
+      callback();
+    });
   });
 
   this.Then(/^"([^"]*)" doesn't hear anything$/, function (personName, callback) {
-    assert.deepEqual(this.messagesHeardBy(personName), []);
-    callback();
+    this.messagesHeardBy(personName, function (err, messages) {
+      if(err) return callback(err);
+      assert.deepEqual(messages, []);
+      callback();
+    });
   });
 
 };
