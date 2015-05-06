@@ -22,6 +22,9 @@
   "homepage": "https://github.com/cucumber-ltd/shouty.js",
   "devDependencies": {
     "cucumber": "^0.4.8",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-shell": "^1.1.2",
     "hide-stack-frames-from": "^1.0.0"
   }
 }
