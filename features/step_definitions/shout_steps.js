@@ -11,6 +11,16 @@ module.exports = function () {
 
   if(process.env.WORLD === 'web') {
     this.World = require('./web_world').WebWorld;
+
+    var server;
+    this.Before(function (callback) {
+      var shoutyApp = require('../../lib/shouty_app');
+      server = shoutyApp().listen(3000, callback);
+    });
+
+    this.After(function (callback) {
+      server.close(callback);
+    });
   } else {
     this.World = function DomainWorld(callback) {
       callback();
