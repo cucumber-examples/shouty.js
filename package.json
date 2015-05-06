@@ -23,8 +23,8 @@
   "devDependencies": {
     "cucumber": "^0.4.8",
     "hide-stack-frames-from": "^1.0.0",
-    "server-destroy": "^1.0.0",
-    "zombie": "^4.0.10"
+    "selenium-launcher": "^1.1.11",
+    "selenium-webdriver": "^2.45.1"
   },
   "dependencies": {
     "body-parser": "^1.12.3",
