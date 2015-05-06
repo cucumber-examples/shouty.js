@@ -1,0 +1,13 @@
+html
+  head
+    title Shouty
+  body
+    h1 Hello, #{ personName }
+    form(action="/messages" method="post")
+      label(for="message") What's on your mind?
+      input(type="hidden" name="personName" value=personName)
+      input(name="message")
+      button(name="shout") Shout
+    ul
+      each message in messages
+        li= message

@@ -2,10 +2,24 @@ var assert = require('assert');
 var Shouty = require('../../lib/shouty');
 
 module.exports = function () {
-  this.World = function(callback) {
-    callback();
-    return new Shouty();
-  };
+  if(process.env.WORLD === 'selenium') {
+    this.World = require('./selenium_world').SeleniumWorld;
+
+    var server;
+    this.Before(function (callback) {
+      var shoutyApp = require('../../lib/shouty_app');
+      server = shoutyApp().listen(3000, callback);
+    });
+
+    this.After(function (callback) {
+      server.close(callback);
+    });
+  } else {
+    this.World = function (callback) {
+      callback();
+      return new Shouty();
+    };
+  }
 
   this.Given(/^"([^"]*)" is at "([^"]*)"$/, function (personName, address, callback) {
     var geoLocation = {
