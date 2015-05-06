@@ -9,8 +9,9 @@ module.exports = function () {
 
   this.Given(/^"([^"]*)" is at "([^"]*)"$/, function (personName, address, callback) {
     var geoLocation = {
-      "Mobilvägen 1"        : [55.7143279,13.1888218],
-      "Lund Centralstation" : [55.708,13.1869]
+      "Mobilvägen 1"        : [55.7179667,13.226618],
+      "Mobilvägen 9"        : [55.7168453,13.225636],
+      "Lund Centralstation" : [55.708098,13.1869]
     }[address];
     this.personIsAt(personName, geoLocation, callback);
   });
