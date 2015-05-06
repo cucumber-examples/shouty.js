@@ -12,7 +12,11 @@ module.exports = function () {
     });
 
     this.After(function (callback) {
-      server.close(callback);
+      console.log('Closing server...');
+      server.close(function () {
+        console.log('Closed server!!');
+        callback();
+      });
     });
   } else {
     this.World = function (callback) {

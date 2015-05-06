@@ -25,7 +25,23 @@ module.exports.SeleniumWorld = function (callback) {
     browser.findElement(By.name('shout')).click().then(function () {
       callback();
     });
+  };
 
+  this.messagesHeardBy = function (personName, callback) {
+    var browser = browsers[personName];
+
+    // refresh page to get new messages (if any)
+    browser.navigate().refresh().then(function () {
+      var selector = By.xpath('//li');
+      browser.findElements(selector).then(function (lis) {
+        var messagePromises = lis.map(function (li) {
+          return li.getText();
+        });
+        webdriver.promise.all(messagePromises).then(function (messages) {
+          return callback(null, messages);
+        });
+      });
+    });
   };
 
   callback();
