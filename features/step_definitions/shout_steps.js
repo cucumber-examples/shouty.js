@@ -26,4 +26,12 @@ module.exports = function () {
       callback();
     });
   });
+
+  this.Then(/^"([^"]*)" should hear "([^"]*)"$/, function (personName, expectedMessage, callback) {
+    this.messagesHeardBy(personName, function (err, actualMessagesHeard) {
+      if(err) return callback(err);
+      assert.deepEqual(actualMessagesHeard, [expectedMessage]);
+      callback();
+    });
+  });
 };
