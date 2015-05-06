@@ -8,11 +8,11 @@ module.exports = function () {
   };
 
   this.Given(/^"([^"]*)" is at "([^"]*)"$/, function (personName, address, callback) {
-    var location = {
+    var geoLocation = {
       "Mobilvägen 1"        : [55.7143279,13.1888218],
       "Lund Centralstation" : [55.708,13.1869]
     }[address];
-    this.personIsAt(personName, location, callback);
+    this.personIsAt(personName, geoLocation, callback);
   });
 
   this.When(/^"([^"]*)" shouts "([^"]*)"$/, function (personName, message, callback) {
