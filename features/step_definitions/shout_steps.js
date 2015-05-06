@@ -7,20 +7,20 @@ module.exports = function () {
     return new Shouty();
   };
 
-  this.Given(/^"([^"]*)" is in "([^"]*)"$/, function (person, address, callback) {
+  this.Given(/^"([^"]*)" is in "([^"]*)"$/, function (personName, address, callback) {
     var location = {
       "Mobilvägen 1"        : [55.7143279,13.1888218],
       "Lund Centralstation" : [55.708,13.1869]
     }[address];
-    this.personIsIn(person, location, callback);
+    this.personIsIn(personName, location, callback);
   });
 
-  this.When(/^"([^"]*)" shouts "([^"]*)"$/, function (person, message, callback) {
-    this.personShouts(person, message, callback);
+  this.When(/^"([^"]*)" shouts "([^"]*)"$/, function (personName, message, callback) {
+    this.personShouts(personName, message, callback);
   });
 
-  this.Then(/^"([^"]*)" should not hear anything$/, function (person, callback) {
-    this.messagesHeardBy(person, function (err, actualMessagesHeard) {
+  this.Then(/^"([^"]*)" should not hear anything$/, function (personName, callback) {
+    this.messagesHeardBy(personName, function (err, actualMessagesHeard) {
       if(err) return callback(err);
       assert.deepEqual(actualMessagesHeard, []);
       callback();
