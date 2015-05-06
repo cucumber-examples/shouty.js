@@ -4,6 +4,13 @@ var By = webdriver.By;
 module.exports.SeleniumWorld = function (callback) {
   var browsers = {};
 
+  this.closeAll = function() {
+    for(var personName in browsers) {
+      var browser = browsers[personName];
+      browser.close();
+    }
+  };
+
   this.personIsAt = function(personName, geoLocation, callback) {
     var browser = new webdriver.Builder()
       .forBrowser('firefox')

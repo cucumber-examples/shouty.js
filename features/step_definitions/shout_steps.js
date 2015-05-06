@@ -12,6 +12,7 @@ module.exports = function () {
     });
 
     this.After(function (callback) {
+      this.closeAll();
       console.log('Closing server...');
       server.close(function () {
         console.log('Closed server!!');
