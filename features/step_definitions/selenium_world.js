@@ -48,7 +48,7 @@ module.exports.SeleniumWorld = function (callback) {
         });
         return webdriver.promise.all(messagePromises);
       })
-      .then (function (messages) {
+      .then(function (messages) {
         callback(null, messages);
       });
   };
