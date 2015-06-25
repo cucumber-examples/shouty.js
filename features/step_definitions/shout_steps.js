@@ -1,8 +1,12 @@
+var Q = require('q');
+
 module.exports = function () {
 
   this.Given(/^Lucy (?:is within range of|can hear) Sean$/, function () {
-    this.registerPerson('Sean', 0);
-    this.registerPerson('Lucy', this.configuration.range - 1);
+    return Q.all([
+      this.registerPerson('Sean', 0),
+      this.registerPerson('Lucy', this.configuration.range - 1)
+    ]);
   });
 
   this.Given(/^Lucy is out of range from Sean$/, function () {
@@ -12,7 +16,7 @@ module.exports = function () {
 
   this.When(/^Sean shouts$/, function () {
     this.sean_shout = "hello";
-    this.shout('Sean', this.sean_shout);
+    return this.shout('Sean', this.sean_shout);
   });
 
   this.When(/^Sean shouts a short shout$/, function () {

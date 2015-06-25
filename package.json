@@ -21,6 +21,14 @@
   },
   "homepage": "https://github.com/cucumber-ltd/shouty.js",
   "devDependencies": {
-    "cucumber": "^0.5.1"
+    "cucumber": "^0.5.1",
+    "q": "^1.4.1",
+    "selenium-webdriver": "^2.46.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.13.1",
+    "express": "^4.13.0",
+    "jade": "^1.11.0",
+    "server-destroy": "^1.0.1"
   }
 }
