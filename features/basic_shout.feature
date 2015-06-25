@@ -13,7 +13,6 @@ Feature: Basic shout
   * Lucy, the listener
   * Sean, the shouter
 
-  @wip
   Scenario: the one where Lucy is in the zone
     Given Lucy is within range of Sean
     When Sean shouts
