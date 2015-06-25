@@ -1,4 +1,3 @@
-# lang: fr
 Feature: Basic shout
 
   People on Shouty can shout to other people who are not
@@ -14,22 +13,23 @@ Feature: Basic shout
   * Lucy, the listener
   * Sean, the shouter
 
+  @wip
   Scenario: the one where Lucy is in the zone
-    Given Lucy is 999m away of Sean
-    When Sean shouts "Free guinness!"
-    Then Lucy should receive "Free guinness!"
+    Given Lucy is within range of Sean
+    When Sean shouts
+    Then Lucy should hear Sean's shout
 
   Scenario: the one where Lucy is out of the zone
-    Given Lucy is 1000m away of Sean
-    When Sean shouts "Free guinness!"
-    Then Lucy should not receive "Free guinness!"
+    Given Lucy is out of range from Sean
+    When Sean shouts
+    Then Lucy should not hear Sean's shout
 
   Scenario: the one where Sean shouts a short shout
-    Given Lucy is 999m away of Sean
-    When Sean shouts "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    Then Lucy should receive "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    Given Lucy can hear Sean
+    When Sean shouts a short shout
+    Then Lucy should hear Sean's shout
 
   Scenario: the one where Sean shouts a too-long shout
-    Given Lucy is 999m away of Sean
-    When Sean shouts "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXY"
-    Then Lucy should not receive "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXY"
+    Given Lucy can hear Sean
+    When Sean shouts a too-long shout
+    Then Lucy should not hear Sean's shout

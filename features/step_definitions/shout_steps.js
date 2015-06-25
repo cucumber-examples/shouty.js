@@ -1,41 +1,40 @@
-var Shouty = require('../../lib/shouty');
-var Network = Shouty.Network;
-var Person = Shouty.Person;
-
 module.exports = function () {
-  var sean, lucy, network;
 
-  this.Before(function (callback) {
-    var configuration = { range: 1000, shoutLengthLimit: 256 };
-    network = new Network(configuration);
-    callback();
+  this.Given(/^Lucy (?:is within range of|can hear) Sean$/, function () {
+    this.registerPerson('Sean', 0);
+    this.registerPerson('Lucy', this.configuration.range - 1);
   });
 
-  this.Given(/^Lucy is (\d+)m away of Sean$/, function (distance) {
-    distance = parseInt(distance);
-    var seanPosition = 0;
-    sean = new Person(network, seanPosition);
-    lucy = new Person(network, seanPosition + distance);
+  this.Given(/^Lucy is out of range from Sean$/, function () {
+    this.registerPerson('Sean', 0);
+    this.registerPerson('Lucy', this.configuration.range);
   });
 
-  this.When(/^Sean shouts "([^"]*)"$/, function (shout) {
-    sean.shout(shout);
+  this.When(/^Sean shouts$/, function () {
+    this.sean_shout = "hello";
+    this.shout('Sean', this.sean_shout);
   });
 
-  this.Then(/^Lucy should receive "([^"]*)"$/, function (shout) {
-    if (lucy.lastHeardShout != shout) {
-      throw new Error("Expected Lucy to have heard " + shout);
+  this.When(/^Sean shouts a short shout$/, function () {
+    this.sean_shout = (new Array(this.configuration.shoutLengthLimit)).join('X');
+    this.shout('Sean', this.sean_shout);
+  });
+
+  this.When(/^Sean shouts a too\-long shout$/, function () {
+    this.sean_shout = (new Array(this.configuration.shoutLengthLimit + 1)).join('X');
+    this.shout('Sean', this.sean_shout);
+  });
+
+  this.Then(/^Lucy should hear Sean's shout$/, function () {
+    if (this.getLastMessageHeardBy('Lucy') != this.sean_shout) {
+      throw new Error("Expected Lucy to have heard \"" + this.sean_shout +"\"");
     }
   });
 
-  this.Then(/^Lucy should not receive "([^"]*)"$/, function (shout) {
-    if (lucy.lastHeardShout == shout) {
-      throw new Error("Expected Lucy not to have heard " + shout);
+  this.Then(/^Lucy should not hear Sean's shout$/, function () {
+    if (this.getLastMessageHeardBy('Lucy') == this.sean_shout) {
+      throw new Error("Expected Lucy not to have heard \"" + this.sean_shout +"\"");
     }
   });
 
-
-  this.Then(/^there should be the following data:$/, function (table, callback) {
-    console.log(table.rowsHash());
-  });
 };
