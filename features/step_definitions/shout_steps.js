@@ -19,8 +19,9 @@ module.exports = function () {
   });
 
   this.When(/^Fred shouts$/, function (callback) {
+    this.shout("Fred", "hello everyone");
     // Write code here that turns the phrase above into concrete actions
-    callback.pending();
+    callback();
   });
 
   this.Then(/^Joanne does not hear Fred's message$/, function (callback) {
