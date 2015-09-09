@@ -31,4 +31,10 @@ module.exports = function () {
     callback();
   });
 
+  this.Then(/^Joanne hears Fred's shout$/, function (callback) {
+    var expected = ["hello everyone"];
+    var actual = this.getAllShoutsHeardBy("Joanne");
+    assert.deepEqual(actual, expected);
+    callback();
+  });
 };
