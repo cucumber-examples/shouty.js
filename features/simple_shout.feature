@@ -14,6 +14,8 @@ Feature: Simple Shout
   - Fred is a shouter
 
   Scenario: Joanne is too far away to hear Fred
-    
+    Given Joanne is 2 km away from Fred
+    When Fred shouts
+    Then Joanne does not hear Fred's message
 
   Scenario: Joanne is close enough to hear Fred
