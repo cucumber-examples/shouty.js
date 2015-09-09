@@ -23,5 +23,8 @@
   "devDependencies": {
     "cucumber": "^0.4.8",
     "hide-stack-frames-from": "^1.0.0"
+  },
+  "dependencies": {
+    "haversine": "^1.0.0"
   }
 }

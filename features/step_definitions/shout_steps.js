@@ -11,10 +11,14 @@ module.exports = function () {
     return new Shouty();
   };
 
-  this.Given(/^Joanne is (\d+) km away from Fred$/, function (arg1, callback) {
-    // Write code here that turns the phrase above into concrete actions
+  this.Given(/^Joanne is (\d+) km away from Fred$/, function (distance, callback) {
     this.personIsIn("Joanne", bridgeHouse);
-    this.personIsIn("Fred", piccadilly);
+
+    if(distance <= 1) {
+      this.personIsIn("Fred", theQuays);
+    } else {
+      this.personIsIn("Fred", piccadilly);
+    }
     callback();
   });
 
