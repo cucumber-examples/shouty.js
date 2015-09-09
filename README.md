@@ -19,7 +19,7 @@ Git:
 
 Subversion:
 
-    svn checkout https://github.com/cucumber-ltd/shouty.js/YYYY-MM-DD shouty.js
+    svn checkout https://github.com/cucumber-ltd/shouty.js/branches/YYYY-MM-DD shouty.js
     cd shouty.js
 
 Or simply [download](https://github.com/cucumber-ltd/shouty.js/releases) a zip or tarball.
