@@ -24,9 +24,11 @@ module.exports = function () {
     callback();
   });
 
-  this.Then(/^Joanne does not hear Fred's message$/, function (callback) {
-    // Write code here that turns the phrase above into concrete actions
-    callback.pending();
+  this.Then(/^Joanne does not hear anything$/, function (callback) {
+    var expected = [];
+    var actual = this.getAllShoutsHeardBy("Joanne");
+    assert.deepEqual(actual, expected);
+    callback();
   });
 
 };
