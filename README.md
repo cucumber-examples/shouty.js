@@ -26,8 +26,24 @@ Or simply [download](https://github.com/cucumber-ltd/shouty.js/releases) a zip o
 
 ### Set up environment
 
-* Install Node.js
-* Run `npm install`
+#### Install Node.js
+
+#### Install Cucumber and other dependencies
+
+```
+npm install
+```
+
+After this, Cucumber is in `./node_modules/.bin/cucumber.js`
+If that feels awkward to you, install it globally:
+
+```
+npm install --global cucumber
+```
+
+After this, `cucumber.js` is on your `PATH`.
+
+#### Run Cucumber
 * Run `npm test`
 
 You should see:
