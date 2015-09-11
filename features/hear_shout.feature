@@ -29,7 +29,3 @@ Feature: Hear Shout
     Given "Tom" has heard "Pete"'s shout
     When "Tom" moves next to "Pete"
     Then "Tom" should hear "Pete"'s shout
-
-  Scenario: Joe proposes to Jane, but her app is closed
-
-  Scenario: Pete is not signed in, but still hears shouts
