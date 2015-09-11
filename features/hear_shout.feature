@@ -1,4 +1,3 @@
-# language: en-scouse
 Feature: Hear Shout
 
   Rules
@@ -15,6 +14,11 @@ Feature: Hear Shout
   Scenario: Tom hears Pete who is nearby
 
   Scenario: Tom does not hear Pete who is far away
+    Given "Pete" is at "Piccadilly"
+    And "Tom" is at "The Quays"
+    And "Piccadilly" is more than 1 km away from "The Quays"
+    When "Pete" shouts
+    Then "Tom" should not hear "Pete"
 
   Scenario: Joe proposes to Jane, but her app is closed
 
