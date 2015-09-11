@@ -18,7 +18,7 @@ Feature: Hear Shout
     And "Tom" is at "The Quays"
     And "Piccadilly" is more than 1 km away from "The Quays"
     When "Pete" shouts
-    Then "Tom" should not hear "Pete"
+    Then "Tom" should not hear anything
 
   Scenario: Joe proposes to Jane, but her app is closed
 

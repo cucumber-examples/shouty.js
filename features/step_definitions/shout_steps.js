@@ -25,13 +25,11 @@ module.exports = function () {
     assert(distance > minDistance, "Distance was actually " + distance + "km");
   });
 
-  this.When(/^"([^"]*)" shouts$/, function (arg1, callback) {
-    // Write code here that turns the phrase above into concrete actions
-    callback.pending();
+  this.When(/^"([^"]*)" shouts$/, function (personName) {
+    this.personShouts(personName, "A message from " + personName);
   });
 
-  this.Then(/^"([^"]*)" should not hear "([^"]*)"$/, function (arg1, arg2, callback) {
-    // Write code here that turns the phrase above into concrete actions
-    callback.pending();
+  this.Then(/^"([^"]*)" should not hear anything$/, function (personName) {
+    assert.deepEqual(this.getShoutsHeardBy(personName), []);
   });
 };
