@@ -30,6 +30,16 @@ module.exports = function () {
     assert(distance <= maxDistance, "Distance was actually " + distance + "km");
   });
 
+  this.Given(/^"([^"]*)" has heard "([^"]*)"'s shout$/, function (listenerName, shouterName) {
+    this.personIsAtLocation(listenerName, locations["Bridge House"]);
+    this.personIsAtLocation(shouterName, locations["The Quays"]);
+    this.shout(shouterName, "A message from " + shouterName);
+  });
+
+  this.When(/^"([^"]*)" moves next to "([^"]*)"$/, function (listenerName, shouterName) {
+    this.personIsAtLocation(listenerName, locations["The Quays"]);
+  });
+
   this.When(/^"([^"]*)" shouts$/, function (personName) {
     this.shout(personName, "A message from " + personName);
   });
