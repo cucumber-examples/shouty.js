@@ -29,3 +29,5 @@ Feature: Hear Shout
     Given "Tom" has heard "Pete"'s shout
     When "Tom" moves next to "Pete"
     Then "Tom" should hear "Pete"'s shout
+
+  Scenario: Tom is far away from Pete, but hears Pete's old message when he moves near him
