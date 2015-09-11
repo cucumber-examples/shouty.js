@@ -22,5 +22,8 @@
   "homepage": "https://github.com/cucumber-ltd/shouty.js",
   "devDependencies": {
     "cucumber": "^0.5.2"
+  },
+  "dependencies": {
+    "haversine": "^1.0.0"
   }
 }

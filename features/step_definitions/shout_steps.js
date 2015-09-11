@@ -1,4 +1,5 @@
 var assert = require('assert');
+var haversine = require('haversine');
 var Shouty = require('../../lib/shouty');
 
 // Simple location service just for our tests
@@ -14,16 +15,14 @@ module.exports = function () {
     return new Shouty();
   };
 
-  this.Given(/^"([^"]*)" is at "([^"]*)"$/, function (personName, locationName, callback) {
-    // Write code here that turns the phrase above into concrete actions
+  this.Given(/^"([^"]*)" is at "([^"]*)"$/, function (personName, locationName) {
     var geoLocation = locations[locationName];
     this.personIsAtLocation(personName, geoLocation);
-    callback.pending();
   });
 
-  this.Given(/^"([^"]*)" is more than (\d+) km away from "([^"]*)"$/, function (arg1, arg2, arg3, callback) {
-    // Write code here that turns the phrase above into concrete actions
-    callback.pending();
+  this.Given(/^"([^"]*)" is more than (\d+) km away from "([^"]*)"$/, function (locationName1, minDistance, locationName2) {
+    var distance = haversine(locations[locationName1], locations[locationName2], {unit: 'km'});
+    assert(distance > minDistance, "Distance was actually " + distance + "km");
   });
 
   this.When(/^"([^"]*)" shouts$/, function (arg1, callback) {
