@@ -12,6 +12,11 @@ Feature: Hear Shout
   - Do shouts expire
 
   Scenario: Tom hears Pete who is nearby
+    Given "Pete" is at "Bridge House"
+    And "Tom" is at "The Quays"
+    And "Bridge House" is within 1 km of "The Quays"
+    When "Pete" shouts
+    Then "Tom" should hear "Pete"'s shout
 
   Scenario: Tom does not hear Pete who is far away
     Given "Pete" is at "Piccadilly"

@@ -20,9 +20,14 @@ module.exports = function () {
     this.personIsAtLocation(personName, geoLocation);
   });
 
-  this.Given(/^"([^"]*)" is more than (\d+) km away from "([^"]*)"$/, function (locationName1, minDistance, locationName2) {
+  this.Given(/^"([^"]*)" is more than (\d+) km away from "([^"]*)"$/, function (locationName1, maxDistance, locationName2) {
     var distance = haversine(locations[locationName1], locations[locationName2], {unit: 'km'});
-    assert(distance > minDistance, "Distance was actually " + distance + "km");
+    assert(distance > maxDistance, "Distance was actually " + distance + "km");
+  });
+
+  this.Given(/^"([^"]*)" is within (\d+) km of "([^"]*)"$/, function (locationName1, maxDistance, locationName2) {
+    var distance = haversine(locations[locationName1], locations[locationName2], {unit: 'km'});
+    assert(distance <= maxDistance, "Distance was actually " + distance + "km");
   });
 
   this.When(/^"([^"]*)" shouts$/, function (personName) {
@@ -31,5 +36,9 @@ module.exports = function () {
 
   this.Then(/^"([^"]*)" should not hear anything$/, function (personName) {
     assert.deepEqual(this.getShoutsHeardBy(personName), []);
+  });
+
+  this.Then(/^"([^"]*)" should hear "([^"]*)"'s shout$/, function (listenerName, shouterName) {
+    assert.deepEqual(this.getShoutsHeardBy(listenerName), ["A message from " + shouterName]);
   });
 };
