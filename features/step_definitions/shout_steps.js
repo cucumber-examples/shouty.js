@@ -31,7 +31,7 @@ module.exports = function () {
   });
 
   this.When(/^"([^"]*)" shouts$/, function (personName) {
-    this.personShouts(personName, "A message from " + personName);
+    this.shout(personName, "A message from " + personName);
   });
 
   this.Then(/^"([^"]*)" should not hear anything$/, function (personName) {
