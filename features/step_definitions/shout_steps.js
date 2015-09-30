@@ -1,14 +1,26 @@
-function Shouter(shouters, position) {
+function Shouter(network, position) {
   this.position = position;
 
-  this.shout = function (shout) {
-    var self = this;
+  network.join(this);
 
+  this.shout = function (shout) {
+    network.broadcast(this, shout);
+  };
+}
+
+function Network() {
+  var shouters = [];
+
+  this.broadcast = function (shouter, shout) {
     shouters.forEach(function (listener) {
-      if (Math.abs(listener.position - self.position) <= 500) {
+      if (Math.abs(listener.position - shouter.position) <= 500) {
         listener.lastHeardMessage = shout;
       }
     });
+  };
+
+  this.join = function (shouter) {
+    shouters.push(shouter);
   };
 }
 
@@ -16,12 +28,10 @@ module.exports = function () {
   var sean, lucy;
 
   this.Given(/^Lucy is (\d+) meters away from Sean$/, function (distance) {
-    var shouters = [];
     var lucyPosition = distance;
-    sean = new Shouter(shouters, 0);
-    lucy = new Shouter(shouters, lucyPosition);
-    shouters.push(sean);
-    shouters.push(lucy);
+    var network = new Network();
+    sean = new Shouter(network, 0);
+    lucy = new Shouter(network, lucyPosition);
   });
 
   this.When(/^Sean shouts "([^"]*)"$/, function (shout) {
