@@ -1,15 +1,27 @@
-function Shouter() {
-  this.shout = function () {};
+function Shouter(shouters, position) {
+  this.position = position;
 
-  this.lastHeardMessage = "Hello World!";
+  this.shout = function (shout) {
+    var self = this;
+
+    shouters.forEach(function (listener) {
+      if (Math.abs(listener.position - self.position) <= 500) {
+        listener.lastHeardMessage = shout;
+      }
+    });
+  };
 }
 
 module.exports = function () {
   var sean, lucy;
 
   this.Given(/^Lucy is (\d+) meters away from Sean$/, function (distance) {
-    sean = new Shouter();
-    lucy = new Shouter();
+    var shouters = [];
+    var lucyPosition = distance;
+    sean = new Shouter(shouters, 0);
+    lucy = new Shouter(shouters, lucyPosition);
+    shouters.push(sean);
+    shouters.push(lucy);
   });
 
   this.When(/^Sean shouts "([^"]*)"$/, function (shout) {
@@ -28,8 +40,9 @@ module.exports = function () {
     }
   });
 
-  this.Then(/^Lucy should not hear "([^"]*)"$/, function (arg1, callback) {
-    // Write code here that turns the phrase above into concrete actions
-    callback.pending();
+  this.Then(/^Lucy should not hear "([^"]*)"$/, function (shout) {
+    if (lucy.lastHeardMessage == shout) {
+      throw new Error("Expected Lucy not to hear " + shout + ", but she heard it.");
+    }
   });
 };
