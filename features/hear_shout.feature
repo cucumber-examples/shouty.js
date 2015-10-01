@@ -15,6 +15,7 @@ Feature: Hear Shout
     - Sean: a shouter
     - Lucy: a listener
 
+  @wip
   Scenario: Lucy can hear Sean
     Given Lucy is 500 meters away from Sean
     When Sean shouts "Hello World!"
@@ -34,13 +35,13 @@ Feature: Hear Shout
     And Sean should hear "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
   Scenario: the one where the shout is too long
-    Given Lucy is 500 meters away from Sean
+    Given Lucy is close enough to hear Sean
     When Sean shouts "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
     Then Lucy should not hear "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
     And Sean should not hear "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
 
   Scenario: the one where the shout is too short
-    Given Lucy is 500 meters away from Sean
+    Given Lucy is close enough to hear Sean
     When Sean shouts ""
     Then Lucy should not hear ""
     And Sean should not hear ""
