@@ -21,6 +21,6 @@
   },
   "homepage": "https://github.com/cucumber-ltd/shouty.js",
   "devDependencies": {
-    "cucumber": "^0.6.0"
+    "cucumber": "^0.9.5"
   }
 }
