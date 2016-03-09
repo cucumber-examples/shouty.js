@@ -1,8 +1,8 @@
 var assert = require('assert');
 var DomainWorld = require('./support/domain_world').DomainWorld;
-
+var ZombieWorld = require('./support/zombie_world').ZombieWorld;
 module.exports = function () {
-  this.World = DomainWorld;
+  this.World = process.env.world === 'zombie' ? ZombieWorld : DomainWorld;
 
   this.Given(/^Lucy is (\d+)m away from Sean$/, function (distance) {
     this.startShouty();
