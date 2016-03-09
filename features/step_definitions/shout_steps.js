@@ -4,19 +4,35 @@ var Network = Shouty.Network;
 var Person = Shouty.Person;
 
 module.exports = function () {
+  this.World = function DomainWorld() {
+    this.startShouty = function () {
+      this.network = new Network();
+    };
+
+    this.registerPerson = function (name, position) {
+      this[name] = new Person(this.network, position);
+    };
+
+    this.makePersonShout = function (shouterName, shout) {
+      this[shouterName].shout(shout);
+    };
+  };
+
   this.Given(/^Lucy is (\d+)m away from Sean$/, function (distance) {
-    var network = new Network();
-    this.lucy = new Person(network, 0);
-    this.sean = new Person(network, distance);
+    this.startShouty();
+    this.registerPerson('lucy', 0);
+    this.registerPerson('sean', distance);
   });
 
   this.When(/^Sean shouts "([^"]*)"$/, function (shout) {
-    this.sean.shout(shout);
+    this.makePersonShout('sean', shout);
   });
 
   this.Then(/^Lucy should receive "([^"]*)"$/, function (shout) {
-    if (this.lucy.lastHeardMessage != shout)
-      throw new Error("Lucy should have received " + shout + ", but she received: " + this.lucy.lastHeardMessage)
+    this.assertPersonReceivedShout(shout);
+
+    // if (this.lucy.lastHeardMessage != shout)
+    //   throw new Error("Lucy should have received " + shout + ", but she received: " + this.lucy.lastHeardMessage)
   });
 
   this.Then(/^Lucy should not receive "([^"]*)"$/, function (shout) {
