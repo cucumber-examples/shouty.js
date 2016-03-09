@@ -4,7 +4,7 @@ var Network = Shouty.Network;
 var Person = Shouty.Person;
 
 module.exports = function () {
-  this.Given(/^Lucy is 800m away from Sean$/, function () {
+  this.Given(/^Lucy is (\d+)m away from Sean$/, function (distance) {
     var network = new Network();
     this.lucy = new Person(network);
     this.sean = new Person(network);
