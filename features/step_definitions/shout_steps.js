@@ -6,8 +6,8 @@ var Person = Shouty.Person;
 module.exports = function () {
   this.Given(/^Lucy is (\d+)m away from Sean$/, function (distance) {
     var network = new Network();
-    this.lucy = new Person(network);
-    this.sean = new Person(network);
+    this.lucy = new Person(network, 0);
+    this.sean = new Person(network, distance);
   });
 
   this.When(/^Sean shouts "([^"]*)"$/, function (shout) {
