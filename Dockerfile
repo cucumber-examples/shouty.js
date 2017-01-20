@@ -4,3 +4,6 @@ VOLUME /shouty.js
 
 WORKDIR /shouty.js
 
+RUN npm install esprima
+
+RUN npm install 
