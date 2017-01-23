@@ -1,6 +1,5 @@
 var assert = require('assert');
-var Shouty = require('../../lib/shouty');
-var Coordinate = require('../../lib/coordinate')
+import { Shouty, Coordinate } from '../../lib'
 
 var {defineSupportCode} = require('cucumber');
 

@@ -1,5 +1,5 @@
 var assert = require('assert')
-var Coordinate = require('../lib/coordinate')
+import { Coordinate } from '../lib'
 
 describe("coordinate class", () => {
 
