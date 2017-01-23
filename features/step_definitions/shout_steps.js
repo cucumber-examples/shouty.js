@@ -1,5 +1,5 @@
 var assert = require('assert');
-  var Shouty = require('../../lib/shouty');
+var Shouty = require('../../lib/shouty');
 var Coordinate = require('../../lib/coordinate')
 
 var {defineSupportCode} = require('cucumber');
