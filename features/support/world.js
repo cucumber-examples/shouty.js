@@ -1,5 +1,5 @@
 var {defineSupportCode} = require('cucumber');
-var Shouty = require('../../lib/shouty');
+import { Shouty } from '../../lib';
 
 function CustomWorld() {
   this.shouty = new Shouty()
