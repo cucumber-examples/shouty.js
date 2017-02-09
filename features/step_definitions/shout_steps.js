@@ -8,12 +8,12 @@ defineSupportCode(function({Given, When, Then}) {
   const ARBITARY_MESSAGE = 'Hello, world'
   var shouty = new Shouty()
 
-  Given(/^Lucy is at \[(\d+), (\d+)\]$/, function (x, y, callback) {
+  Given(/^Lucy is at (\d+), (\d+)$/, function (x, y, callback) {
     shouty.setLocation('Lucy', new Coordinate(x, y))
     callback()
   });
 
-  Given(/^Sean is at \[(\d+), (\d+)\]$/, function (x, y, callback) {
+  Given(/^Sean is at (\d+), (\d+)$/, function (x, y, callback) {
     shouty.setLocation('Sean', new Coordinate(x, y))
     callback()
   });
