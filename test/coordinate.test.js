@@ -1,7 +1,7 @@
-var assert = require('assert')
-var Coordinate = require('../lib/coordinate')
+const assert = require('assert')
+const Coordinate = require('../lib/coordinate')
 
-describe("coordinate class", () => {
+describe(Coordinate.name, () => {
 
   it("should calculate the distance from itself", () => {
     var a = new Coordinate(0, 0);
