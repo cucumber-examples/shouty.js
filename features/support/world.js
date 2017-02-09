@@ -1,5 +1,5 @@
-var {defineSupportCode} = require('cucumber');
-import { Shouty } from '../../lib';
+const {defineSupportCode} = require('cucumber')
+const Shouty = require('../../lib/shouty')
 
 function CustomWorld() {
   this.shouty = new Shouty()
@@ -7,4 +7,4 @@ function CustomWorld() {
 
 defineSupportCode(function({setWorldConstructor}) {
   setWorldConstructor(CustomWorld)
-});
+})
