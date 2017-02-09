@@ -4,9 +4,12 @@ const Coordinate = require('../../lib/coordinate')
 
 const {defineSupportCode} = require('cucumber')
 
-defineSupportCode(({Given, When, Then}) => {
+defineSupportCode(({Before, Given, When, Then}) => {
   const ARBITARY_MESSAGE = 'Hello, world'
-  var shouty = new Shouty()
+  let shouty
+  Before(function() {
+    shouty = new Shouty()
+  })
 
   Given(/^Lucy is at (\d+), (\d+)$/, function (x, y, callback) {
     shouty.setLocation('Lucy', new Coordinate(x, y))
