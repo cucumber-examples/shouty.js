@@ -7,67 +7,24 @@ Shouty doesn't exist yet - you will implement it yourself!
 
 That is, if you're attending a BDD/Cucumber course.
 
-## Agenda
-
-### Get the code
-
-Git:
+## Get the code
 
     git clone https://github.com/cucumber-ltd/shouty.js.git
     cd shouty.js
-    git checkout YYYY-MM-DD
 
-Subversion:
+Or simply [download](https://github.com/cucumber-ltd/shouty.js/archive/master.zip) a zip file.
 
-    svn checkout https://github.com/cucumber-ltd/shouty.js/branches/YYYY-MM-DD shouty.js
-    cd shouty.js
+## Install Cucumber and other dependencies
 
-Or simply [download](https://github.com/cucumber-ltd/shouty.js/releases) a zip or tarball.
-
-### Set up environment
-
-#### Install Node.js
-
-#### Install Cucumber and other dependencies
-
-```
-npm install
-```
+    npm install
 
 After this, Cucumber is in `./node_modules/.bin/cucumber.js`
-If that feels awkward to you, install it globally:
+For convenience you can run it with `./cucumber`.
 
-```
-npm install --global cucumber
-```
+## Run all the tests
 
-After this, `cucumber.js` is on your `PATH`.
+    npm test
 
-#### Run Cucumber
-* Run `npm test`
+## Run all the tests in the background
 
-You should see:
-
-    0 scenarios
-    0 steps
-
-### Brainstorm capabilities
-
-* Who are the main stakeholders?
-* What can people do with the app?
-* What are the main differentiators from other apps?
-
-### Pick one capability
-
-* Define rules
-* Create high level examples (Friends episodes)
-
-Then do this for each example to discover more examples:
-
-* Can you think of a context where the outcome would be different?
-* Are there any other outcomes we haven't thought about?
-
-### Implement one capability. Text UI only.
-
-* Write a Cucumber Scenario for one of the examples
-* Make it pass!
+    npm run watch

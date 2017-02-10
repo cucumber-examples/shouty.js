@@ -3,10 +3,18 @@
   "version": "1.0.0",
   "description": "Shouty exercise in JavaScript",
   "main": "index.js",
+  "watch": {
+    "mocha": "{lib,test}/**/*.js",
+    "cucumber": {
+      "patterns": ["lib", "features"],
+      "extensions": "js,feature"
+    }
+  },
   "scripts": {
-    "unit_test": "mocha",
-    "acceptance_test": "cucumber.js",
-    "test": "npm run unit_test; npm run acceptance_test --"
+    "mocha": "mocha",
+    "cucumber": "cucumber.js",
+    "test": "npm run mocha; npm run cucumber",
+    "watch": "npm-watch"
   },
   "repository": {
     "type": "git",
@@ -25,6 +33,7 @@
   "devDependencies": {
     "cucumber": "^v2.0.0-rc.6",
     "esprima": "^3.1.3",
-    "mocha": "^3.2.0"
+    "mocha": "^3.2.0",
+    "npm-watch": "^0.1.8"
   }
 }
