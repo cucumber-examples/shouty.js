@@ -13,7 +13,7 @@
   "scripts": {
     "mocha": "mocha",
     "cucumber": "cucumber.js",
-    "test": "npm run mocha; npm run cucumber",
+    "test": "npm run mocha; npm run cucumber --",
     "watch": "npm-watch"
   },
   "repository": {
