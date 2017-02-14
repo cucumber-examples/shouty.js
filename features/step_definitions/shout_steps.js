@@ -24,11 +24,11 @@ defineSupportCode(({Before, Given, When, Then}) => {
   })
 
   Then('Lucy should hear Sean', function () {
-    assert.equal(Object.keys(shouty.getMessagesHeardBy('Lucy')).length, 1)
+    assert.equal(shouty.getMessagesHeardBy('Lucy').size, 1)
   })
 
   Then('Lucy should hear nothing', function () {
-    assert.equal(Object.keys(shouty.getMessagesHeardBy('Lucy')).length, 0)
+    assert.equal(shouty.getMessagesHeardBy('Lucy').size, 0)
   })
 
 })
