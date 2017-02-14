@@ -3,7 +3,7 @@ class SynchronousSnippet {
     parameters.pop() // get rid of callback
     return `${functionName}("${pattern}", function (${parameters.join(", ")}) {
   // ${comment}
-  'pending'
+  return 'pending'
 })`
   }
 }
