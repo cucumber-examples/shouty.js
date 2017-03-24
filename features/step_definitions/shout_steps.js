@@ -1,6 +1,5 @@
 const assert = require('assert')
 const {defineSupportCode} = require('cucumber')
-const {Task, Question} = require('../../lib/screenplay')
 const Shouty = require('../../lib/shouty')
 
 const {TalkToShoutyAPI, TalkToRestAPI} = require('../support/abilities')
@@ -14,13 +13,12 @@ class Start {
   }
 }
 
-class StartViaRestAPI extends Task {
+class StartViaRestAPI /* extends Task */ {
   static atLocation(location) {
     return new this(location)
   }
 
   constructor(location) {
-    super()
     this._location = location
   }
 
@@ -33,13 +31,12 @@ class StartViaRestAPI extends Task {
   }
 }
 
-class StartViaDomainAPI extends Task {
+class StartViaDomainAPI /* extends Task */ {
   static atLocation(location) {
     return new this(location)
   }
 
   constructor(location) {
-    super()
     this._location = location
   }
 
@@ -61,9 +58,8 @@ class Shout {
   }
 }
 
-class ShoutViaRestAPI extends Task {
+class ShoutViaRestAPI /* extends Task */ {
   constructor(message) {
-    super()
     this._message = message
   }
 
@@ -72,9 +68,8 @@ class ShoutViaRestAPI extends Task {
   }
 }
 
-class ShoutViaDomainAPI extends Task {
+class ShoutViaDomainAPI /* extends Task */ {
   constructor(message) {
-    super()
     this._message = message
   }
 
@@ -92,30 +87,28 @@ class Verify {
   }
 }
 
-class Check extends Task {
+class Check /* extends Task */ {
   static that(question, match) {
     return new this(question, match)
   }
 
   constructor(question, match) {
-    super()
     this._question = question
     this._match = match
   }
 
   async performAs(actor) {
-    const answer = await actor.answers(this._question)
+    const answer = await actor.toSee(this._question)
     return this._match(answer)
   }
 }
 
-class LastHeardMessageViaDomainAPI extends Question {
+class LastHeardMessageViaDomainAPI /* extends Question */ {
   static from(shouterName) {
     return new this(shouterName)
   }
 
   constructor(shouterName) {
-    super()
     this._shouterName = shouterName
   }
 
@@ -126,13 +119,12 @@ class LastHeardMessageViaDomainAPI extends Question {
   }
 }
 
-class LastHeardMessageViaRestAPI extends Question {
+class LastHeardMessageViaRestAPI /* extends Question */ {
   static from(shouterName) {
     return new this(shouterName)
   }
 
   constructor(shouterName) {
-    super()
     this._shouterName = shouterName
   }
 
