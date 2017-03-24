@@ -1,6 +1,8 @@
+const http = require('http')
 const Shouty = require('../../lib/shouty')
+const buildExpressApp = require('../../lib/build_express_app')
 const { Stage, Cast, Actor, defineSupportCode } = require('../../lib/screenplay')
-const { TalkToShoutyAPI } = require('./abilities')
+const { TalkToShoutyAPI, TalkToRestAPI } = require('./abilities')
 
 class Actors extends Cast {
   constructor({ shouty }) {
@@ -9,24 +11,44 @@ class Actors extends Cast {
   }
 
   callActor(actorName) {
-    switch (actorName) {
-      case 'Lucy': {
-        return Actor.named(actorName)
-          .whoCan(TalkToShoutyAPI.using(this._shouty))
-      }
-
-      case 'Sean': {
-        return Actor.named(actorName)
-          .whoCan(TalkToShoutyAPI.using(this._shouty))
-      }
-    }
+    if (process.env.SHOUTY_ADAPTER === 'rest')
+      return Actor.named(actorName)
+        .whoCan(TalkToRestAPI.using('http://localhost:1407'))
+    else
+      return Actor.named(actorName)
+        .whoCan(TalkToShoutyAPI.using(this._shouty))
   }
 }
 
-defineSupportCode(({ Before }) => {
-  Before(function () {
+defineSupportCode(({ Before, After }) => {
+  let server
+
+  Before(async function () {
     const shouty = new Shouty()
+
+    if (process.env.SHOUTY_ADAPTER === 'rest') {
+      const app = buildExpressApp(shouty)
+      server = http.createServer(app)
+      await new Promise((resolve, reject) => {
+        server.listen(1407, err => {
+          if (err) return reject(err)
+          resolve()
+        })
+      })
+    }
+
     this.stage = new Stage()
       .setCast(new Actors({ shouty }))
+  })
+
+  After(async function () {
+    if(server) {
+      return new Promise((resolve, reject) => {
+        server.close(err => {
+          if (err) return reject(err)
+          resolve()
+        })
+      })
+    }
   })
 })

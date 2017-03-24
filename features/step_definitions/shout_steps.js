@@ -1,11 +1,39 @@
 const assert = require('assert')
-const { defineSupportCode } = require('cucumber')
-const { Task, Question } = require('../../lib/screenplay')
+const {defineSupportCode} = require('cucumber')
+const {Task, Question} = require('../../lib/screenplay')
 const Shouty = require('../../lib/shouty')
 
-const { TalkToShoutyAPI } = require('../support/abilities')
+const {TalkToShoutyAPI, TalkToRestAPI} = require('../support/abilities')
 
 class Start extends Task {
+  static atLocation(location) {
+    if (process.env.SHOUTY_ADAPTER === 'rest')
+      return new StartViaRestAPI(location)
+    else
+      return new StartViaDomainAPI(location)
+  }
+}
+
+class StartViaRestAPI extends Task {
+  static atLocation(location) {
+    return new this(location)
+  }
+
+  constructor(location) {
+    super()
+    this._location = location
+  }
+
+  async performAs(actor) {
+    // TODO: extract to own task, and use performAs
+    return TalkToRestAPI.as(actor).identifyAs({
+      as: actor.name,
+      at: this._location
+    })
+  }
+}
+
+class StartViaDomainAPI extends Task {
   static atLocation(location) {
     return new this(location)
   }
@@ -80,13 +108,13 @@ const hasContents = expected => actual => assert.equal(actual, expected)
 defineSupportCode(({Before, Given, When, Then}) => {
   let shouty
 
-  Before(function() {
+  Before(function () {
     shouty = new Shouty()
   })
 
   Given('{actor} is at {int}, {int}', async function (actor, x, y) {
     await actor.attemptsTo(
-      Start.atLocation({ x, y, as: actor.name })
+      Start.atLocation({x, y, as: actor.name})
     )
   })
 

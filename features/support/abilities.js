@@ -1,3 +1,5 @@
+const assert = require('assert')
+const fetch = require('node-fetch')
 const { Ability } = require('../../lib/screenplay')
 const Coordinate = require('../../lib/coordinate')
 
@@ -30,6 +32,36 @@ class TalkToShoutyAPI extends Ability {
   }
 }
 
+class TalkToRestAPI extends Ability {
+  static as(actor) {
+    return actor.abilityTo(this)
+  }
+
+  static using(baseUrl) {
+    return new this(baseUrl)
+  }
+
+  constructor(baseUrl) {
+    super()
+    this._baseUrl = baseUrl
+  }
+
+  async identifyAs({ as: username, at: { x, y } }) {
+    this._username = username
+    const response = await fetch(`${this._baseUrl}/${username}/location`, {
+      method: 'POST',
+      body: { x, y }
+    })
+    if(!response.ok) {
+      response.body.pipe(process.stderr, { end: false })
+      response.body.on('finish', () => {
+        throw new Error('Response was not ok')
+      })
+    }
+  }
+}
+
 module.exports = {
-  TalkToShoutyAPI
+  TalkToShoutyAPI,
+  TalkToRestAPI
 }
