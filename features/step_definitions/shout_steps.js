@@ -83,25 +83,33 @@ class ShoutViaDomainAPI extends Task {
   }
 }
 
+class Verify {
+  static lastMessageFrom(personName, match) {
+    if (process.env.SHOUTY_ADAPTER === 'rest')
+      return new Check(LastHeardMessageViaRestAPI.from(personName), match)
+    else
+      return new Check(LastHeardMessageViaDomainAPI.from(personName), match)
+  }
+}
 
 class Check extends Task {
-  static that(question, assert) {
-    return new this(question, assert)
+  static that(question, match) {
+    return new this(question, match)
   }
 
-  constructor(question, assert) {
+  constructor(question, match) {
     super()
     this._question = question
-    this._assert = assert
+    this._match = match
   }
 
   async performAs(actor) {
     const answer = await actor.answers(this._question)
-    return this._assert(answer)
+    return this._match(answer)
   }
 }
 
-class LastHeardMessage extends Question {
+class LastHeardMessageViaDomainAPI extends Question {
   static from(shouterName) {
     return new this(shouterName)
   }
@@ -117,6 +125,24 @@ class LastHeardMessage extends Question {
     return heardMessages[heardMessages.length - 1]
   }
 }
+
+class LastHeardMessageViaRestAPI extends Question {
+  static from(shouterName) {
+    return new this(shouterName)
+  }
+
+  constructor(shouterName) {
+    super()
+    this._shouterName = shouterName
+  }
+
+  async answeredBy(actor) {
+    const heardMessages = await TalkToRestAPI.as(actor).getMessagesHeard()
+    // TODO: filter messages, make sure it was sent by this._shouterName
+    return heardMessages[heardMessages.length - 1]
+  }
+}
+
 
 const DEFAULT_MESSAGE = 'Hi folks!!!'
 
@@ -142,8 +168,11 @@ defineSupportCode(({Before, Given, When, Then}) => {
   })
 
   Then('{actor} should hear Sean', async function (listener) {
+//    await listener.attemptsTo(
+//      Check.that(LastHeardMessage.from('Sean'), hasContents(DEFAULT_MESSAGE))
+//    )
     await listener.attemptsTo(
-      Check.that(LastHeardMessage.from('Sean'), hasContents(DEFAULT_MESSAGE))
+      Verify.lastMessageFrom('Sean', hasContents(DEFAULT_MESSAGE))
     )
   })
 
