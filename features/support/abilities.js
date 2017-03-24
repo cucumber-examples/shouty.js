@@ -61,7 +61,10 @@ class TalkToRestAPI extends Ability {
     this._username = username
     const response = await fetch(`${this._baseUrl}/${username}/location`, {
       method: 'POST',
-      body: { x, y }
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ x, y })
     })
     await responseIsOk(response)
   }
@@ -69,9 +72,18 @@ class TalkToRestAPI extends Ability {
   async shout(message) {
     const response = await fetch(`${this._baseUrl}/${this._username}/messages`, {
       method: 'POST',
-      body: message
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ message })
     })
     await responseIsOk(response)
+  }
+
+  async getMessagesHeard() {
+    const response = await fetch(`${this._baseUrl}/${this._username}/messages`)
+    await responseIsOk(response)
+    return Array.from(new Map(await response.json()).values())
   }
 }
 
