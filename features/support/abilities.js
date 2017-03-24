@@ -1,9 +1,8 @@
 const assert = require('assert')
 const fetch = require('node-fetch')
-const { Ability } = require('../../lib/screenplay')
 const Coordinate = require('../../lib/coordinate')
 
-class TalkToShoutyAPI extends Ability {
+class TalkToShoutyAPI {
   static as(actor) {
     return actor.abilityTo(this)
   }
@@ -13,7 +12,6 @@ class TalkToShoutyAPI extends Ability {
   }
 
   constructor(shouty) {
-    super()
     this._shouty = shouty
     this._username = null
   }
@@ -43,7 +41,8 @@ let responseIsOk = function (response) {
     })
   })
 }
-class TalkToRestAPI extends Ability {
+
+class TalkToRestAPI {
   static as(actor) {
     return actor.abilityTo(this)
   }
@@ -53,7 +52,6 @@ class TalkToRestAPI extends Ability {
   }
 
   constructor(baseUrl) {
-    super()
     this._baseUrl = baseUrl
   }
 

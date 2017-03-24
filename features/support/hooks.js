@@ -2,13 +2,12 @@ const http = require('http')
 const Shouty = require('../../lib/shouty')
 const buildExpressApp = require('../../lib/build_express_app')
 const { defineSupportCode } = require('cucumber')
-const { Stage, Cast } = require('../../lib/screenplay')
+const { Stage } = require('../../lib/screenplay')
 const { Actor } = require('serenity-js/lib/serenity/screenplay/actor')
 const { TalkToShoutyAPI, TalkToRestAPI } = require('./abilities')
 
-class Actors extends Cast {
+class Actors {
   constructor({ shouty }) {
-    super()
     this._shouty = shouty
   }
 
