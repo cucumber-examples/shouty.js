@@ -5,7 +5,7 @@ const Shouty = require('../../lib/shouty')
 
 const {TalkToShoutyAPI, TalkToRestAPI} = require('../support/abilities')
 
-class Start extends Task {
+class Start {
   static atLocation(location) {
     if (process.env.SHOUTY_ADAPTER === 'rest')
       return new StartViaRestAPI(location)
@@ -52,11 +52,27 @@ class StartViaDomainAPI extends Task {
   }
 }
 
-class Shout extends Task {
+class Shout {
   static message(message) {
-    return new this(message)
+    if (process.env.SHOUTY_ADAPTER === 'rest')
+      return new ShoutViaRestAPI(message)
+    else
+      return new ShoutViaDomainAPI(message)
+  }
+}
+
+class ShoutViaRestAPI extends Task {
+  constructor(message) {
+    super()
+    this._message = message
   }
 
+  async performAs(actor) {
+    return TalkToRestAPI.as(actor).shout(this._message)
+  }
+}
+
+class ShoutViaDomainAPI extends Task {
   constructor(message) {
     super()
     this._message = message
@@ -66,6 +82,7 @@ class Shout extends Task {
     return TalkToShoutyAPI.as(actor).shout(this._message)
   }
 }
+
 
 class Check extends Task {
   static that(question, assert) {

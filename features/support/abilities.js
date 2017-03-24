@@ -32,6 +32,17 @@ class TalkToShoutyAPI extends Ability {
   }
 }
 
+let responseIsOk = function (response) {
+  return new Promise((resolve, reject) => {
+    if (response.ok)
+      return resolve()
+
+    response.body.pipe(process.stderr, { end: false })
+    response.body.on('end', () => {
+      reject(new Error('Response was not ok'))
+    })
+  })
+}
 class TalkToRestAPI extends Ability {
   static as(actor) {
     return actor.abilityTo(this)
@@ -52,12 +63,15 @@ class TalkToRestAPI extends Ability {
       method: 'POST',
       body: { x, y }
     })
-    if(!response.ok) {
-      response.body.pipe(process.stderr, { end: false })
-      response.body.on('finish', () => {
-        throw new Error('Response was not ok')
-      })
-    }
+    await responseIsOk(response)
+  }
+
+  async shout(message) {
+    const response = await fetch(`${this._baseUrl}/${this._username}/messages`, {
+      method: 'POST',
+      body: message
+    })
+    await responseIsOk(response)
   }
 }
 
