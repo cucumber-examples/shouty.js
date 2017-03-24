@@ -1,9 +1,12 @@
 const { defineSupportCode } = require('cucumber')
 
-defineSupportCode(({ defineParameterType }) => {
+defineSupportCode(({ defineParameterType, Before }) => {
+  let world
+  Before(function () { world = this })
+
   defineParameterType({
     regexp: /[A-Z]\w+/,
-    transformer: actorName => actorName.toUpperCase(),
+    transformer: actorName => world.stage.actorNamed(actorName),
     typeName: 'actor'
   })
 })
