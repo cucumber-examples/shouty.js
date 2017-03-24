@@ -9,23 +9,21 @@ defineSupportCode(({Before, Given, When, Then}) => {
     shouty = new Shouty()
   })
 
-  Given('Lucy is at {int}, {int}', function (x, y) {
+  Given('{actor} is at {int}, {int}', function (actor, x, y) {
+    console.log('actor', actor)
     return 'pending'
   })
 
-  Given('Sean is at {int}, {int}', function (x, y) {
+  When('{actor} shouts', function (shouter) {
+    console.log('shouter', shouter)
     return 'pending'
   })
 
-  When('Sean shouts', function () {
+  Then('{actor} should hear Sean', function (listener) {
     return 'pending'
   })
 
-  Then('Lucy should hear Sean', function () {
-    return 'pending'
-  })
-
-  Then('Lucy should hear nothing', function () {
+  Then('{actor} should hear nothing', function (listener) {
     return 'pending'
   })
 
