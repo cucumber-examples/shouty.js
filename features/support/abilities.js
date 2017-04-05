@@ -87,7 +87,19 @@ class TalkToRestAPI extends Ability {
   }
 }
 
+function getCoreAbility() {
+  if (process.env.SHOUTY_ADAPTER === 'rest')
+    return TalkToRestAPI
+  else
+    return TalkToShoutyAPI
+}
+
+function getCoreAbilityAs(actor) {
+  return getCoreAbility().as(actor)
+}
+
 module.exports = {
   TalkToShoutyAPI,
-  TalkToRestAPI
+  TalkToRestAPI,
+  getCoreAbilityAs
 }
