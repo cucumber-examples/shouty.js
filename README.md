@@ -16,15 +16,15 @@ Or simply [download](https://github.com/cucumber-ltd/shouty.js/archive/master.zi
 
 ## Install Cucumber and other dependencies
 
-    npm install
+    yarn install
 
 After this, Cucumber is in `./node_modules/.bin/cucumber.js`
 For convenience you can run it with `./cucumber`.
 
 ## Run all the tests
 
-    npm test
+    yarn test
 
 ## Run all the tests in the background
 
-    npm run watch
+    yarn run watch
