@@ -1,4 +1,4 @@
-FROM node:7.5.0
+FROM node:8.4.0
 
 VOLUME /shouty.js
 

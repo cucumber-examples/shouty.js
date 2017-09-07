@@ -1,34 +1,27 @@
 const assert = require('assert')
+const { Before, Given, When, Then } = require('cucumber')
 const Shouty = require('../../lib/shouty')
 const Coordinate = require('../../lib/coordinate')
 
-const {defineSupportCode} = require('cucumber')
+const ARBITARY_MESSAGE = 'Hello, world'
+let shouty
 
-defineSupportCode(({Before, Given, When, Then}) => {
-  const ARBITARY_MESSAGE = 'Hello, world'
-  let shouty
-  Before(function() {
-    shouty = new Shouty()
-  })
+Before(function() {
+  shouty = new Shouty()
+})
 
-  Given('Lucy is at {int}, {int}', function (x, y) {
-    shouty.setLocation('Lucy', new Coordinate(x, y))
-  })
+Given('{word} is at {coordinate}', function (name, coordinate) {
+  shouty.setLocation(name, coordinate)
+})
 
-  Given('Sean is at {int}, {int}', function (x, y) {
-    shouty.setLocation('Sean', new Coordinate(x, y))
-  })
+When('Sean shouts', function () {
+  shouty.shout('Sean', ARBITARY_MESSAGE)
+})
 
-  When('Sean shouts', function () {
-    shouty.shout('Sean', ARBITARY_MESSAGE)
-  })
+Then('Lucy should hear Sean', function () {
+  assert.equal(shouty.getMessagesHeardBy('Lucy').size, 1)
+})
 
-  Then('Lucy should hear Sean', function () {
-    assert.equal(shouty.getMessagesHeardBy('Lucy').size, 1)
-  })
-
-  Then('Lucy should hear nothing', function () {
-    assert.equal(shouty.getMessagesHeardBy('Lucy').size, 0)
-  })
-
+Then('Lucy should hear nothing', function () {
+  assert.equal(shouty.getMessagesHeardBy('Lucy').size, 0)
 })
