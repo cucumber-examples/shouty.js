@@ -23,9 +23,9 @@ When('Sean shouts', function () {
 })
 
 Then('Lucy should hear Sean', function () {
-  assert.equal(shouty.getMessagesHeardBy('Lucy').size, 1)
+  assert.equal(shouty.getShoutsHeardBy('Lucy').size, 1)
 })
 
 Then('Lucy should hear nothing', function () {
-  assert.equal(shouty.getMessagesHeardBy('Lucy').size, 0)
+  assert.equal(shouty.getShoutsHeardBy('Lucy').size, 0)
 })
