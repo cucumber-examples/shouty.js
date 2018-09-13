@@ -15,7 +15,7 @@
   },
   "scripts": {
     "mocha": "mocha",
-    "cucumber": "cucumber-js",
+    "cucumber": "cucumber-js --format node_modules/cucumber-pretty/",
     "test": "npm-run-all --silent -c mocha cucumber",
     "watch": "npm-watch"
   },
@@ -38,5 +38,8 @@
     "mocha": "^4.0.1",
     "npm-run-all": "^4.1.2",
     "npm-watch": "^0.3.0"
+  },
+  "dependencies": {
+    "cucumber-pretty": "^1.4.4"
   }
 }
