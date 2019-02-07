@@ -34,10 +34,10 @@
   },
   "homepage": "https://github.com/cucumber-ltd/shouty.js",
   "devDependencies": {
-    "cucumber": "^3.1.0",
-    "mocha": "^4.0.1",
+    "cucumber": "^5.1.0",
+    "mocha": "^5.2.0",
     "npm-run-all": "^4.1.2",
-    "npm-watch": "^0.3.0"
+    "npm-watch": "^0.6.0"
   },
   "dependencies": {
     "cucumber-pretty": "^1.4.4"
