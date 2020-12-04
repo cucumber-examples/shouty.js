@@ -1,3 +1,3 @@
 module.exports = {
-  default: `--format-options '{"snippetInterface": "synchronous"}'`
+  default: `--publish-quiet --format-options '{"snippetInterface": "synchronous"}'`
 }

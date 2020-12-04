@@ -1,3 +1,6 @@
+const {getGherkinScenarioLocationMap, getGherkinScenarioMap, getGherkinStepMap} = require('@cucumber/cucumber/lib/formatter/helpers/gherkin_document_parser');
+const {getPickleStepMap, getStepKeyword} = require('@cucumber/cucumber/lib/formatter/helpers/pickle_parser');
+
 const { Formatter, formatterHelpers, Status } = require('@cucumber/cucumber')
 const { cross, tick } = require('figures');
 const Table = require('cli-table3');
@@ -49,51 +52,6 @@ class SimpleFormatter extends Formatter {
         this.colorsEnabled = options.colorsEnabled;
         this.descriptionEnabled = options.descriptionEnabled;
 
-        //options.eventBroadcaster.on('test-case-started', (event) => {
-        //});
-        //
-        //options.eventBroadcaster.on('test-step-started', (event) => {
-        //    const testCaseAttempt = options.eventDataCollector.getTestCaseAttempt(event.testCase);
-        //    testCaseAttempt.stepResults = testCaseAttempt.testCase.steps.map(() => ({}));
-        //
-        //    const testStep = formatterHelpers.parseTestCaseAttempt({ testCaseAttempt }).testSteps[event.index];
-        //    if (!testStep.sourceLocation) return; // hook
-        //
-        //    this.logn(`${this.color(testStep.keyword.trim(), 'bold')} ${testStep.text}`, 4);
-        //
-        //    testStep.arguments.forEach((argument) => {
-        //        if (argument.content) {
-        //            this.logn(`"""${n}${argument.content}${n}"""`, 6);
-        //        }
-        //
-        //        if (argument.rows) {
-        //            const datatable = new Table(table);
-        //            datatable.push(...argument.rows);
-        //            this.logn(datatable, 6);
-        //        }
-        //    });
-        //});
-        //
-        //options.eventBroadcaster.on('test-step-finished', (event) => {
-        //    const { result: { status, exception } } = event;
-        //
-        //    if (status !== 'passed') {
-        //        this.logn(options.colorFns[status](`${marks[status]} ${status}`), 4);
-        //    }
-        //
-        //    if (exception) {
-        //        const error = formatterHelpers.formatError(exception, options.colorFns);
-        //        this.logn(error, 6);
-        //    }
-        //});
-        //
-        //options.eventBroadcaster.on('test-run-finished', (event) => {
-        //    const noptions = Object.create(options, { eventBroadcaster: { value: { on: () => { } } } });
-        //    const formatter = new SummaryFormatter(noptions);
-        //    if (this.uri) this.logn();
-        //    formatter.logSummary(event);
-        //});
-
         options.eventBroadcaster.on('envelope', (envelope) => {
             if (envelope.testCaseStarted) {
                 const { gherkinDocument, pickle } = options.eventDataCollector.getTestCaseAttempt(envelope.testCaseStarted.id);
@@ -118,19 +76,57 @@ class SimpleFormatter extends Formatter {
                 const tags = pickle.tags.map((tag) => tag.name).join(' ');
                 if (tags) this.logn(options.colorFns.tag(tags), 2);
 
-                this.logprops(pickle, "pickle");
-                const line = Math.min(...pickle.locations.map((location) => location.line));
 
-                this.logprops(gherkinDocument, "gherkinDocument");
-                const { keyword } = gherkinDocument.feature.children.find((child) => child.location.line === line);
+                const gherkinScenarioMap = getGherkinScenarioMap(gherkinDocument);
+                const keyword = gherkinScenarioMap[pickle.astNodeIds[0]].keyword;
 
                 this.logn(`${this.color(keyword, 'magenta', 'bold')}: ${pickle.name}`, 2);
             } else if (envelope.testStepStarted) {
+                const { gherkinDocument, pickle, testCase } = options.eventDataCollector.getTestCaseAttempt(envelope.testStepStarted.testCaseStartedId);
 
+                const pickleStep = getPickleStepMap(pickle);
+                const gherkinStepMap = getGherkinStepMap(gherkinDocument);
+
+                this.logprops(envelope, "envelope");
+                this.logprops(envelope.testStepStarted, "testStepStarted");
+                this.logprops(options.eventDataCollector.getTestCaseAttempt(envelope.testStepStarted.testCaseStartedId), "testCaseAttempt");
+                this.logprops(pickleStep, "pickleStep");
+                this.logprops(gherkinStepMap, "gherkinStepMap");
+                this.logprops(testCase, "testCase");
+
+                if (testCase.testSteps[1].pickleStepId !== '') {
+                    const keyword = getStepKeyword({pickleStep, gherkinStepMap});
+                    this.logn(`${this.color(keyword.trim(), 'bold')} ${pickleStep.text}`, 4);
+                }
+
+                // DATA TABLES
+                // testStep.arguments.forEach((argument) => {
+                //     if (argument.content) {
+                //         this.logn(`"""${n}${argument.content}${n}"""`, 6);
+                //     }
+                //
+                //     if (argument.rows) {
+                //         const datatable = new Table(table);
+                //         datatable.push(...argument.rows);
+                //         this.logn(datatable, 6);
+                //     }
+                // });
             } else if (envelope.testStepFinished) {
-
+                //    const { result: { status, exception } } = event;
+                //
+                //    if (status !== 'passed') {
+                //        this.logn(options.colorFns[status](`${marks[status]} ${status}`), 4);
+                //    }
+                //
+                //    if (exception) {
+                //        const error = formatterHelpers.formatError(exception, options.colorFns);
+                //        this.logn(error, 6);
+                //    }
             } else if (envelope.testRunFinished) {
-
+                //    const noptions = Object.create(options, { eventBroadcaster: { value: { on: () => { } } } });
+                //    const formatter = new SummaryFormatter(noptions);
+                //    if (this.uri) this.logn();
+                //    formatter.logSummary(event);
             }
         })
     }

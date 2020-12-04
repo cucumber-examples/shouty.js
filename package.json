@@ -15,7 +15,7 @@
   },
   "scripts": {
     "mocha": "mocha",
-    "cucumber": "cucumber-js",
+    "cucumber": "cucumber-js --format ./simple_formatter.js",
     "test": "npm-run-all --silent -c mocha cucumber",
     "watch": "npm-watch"
   },
