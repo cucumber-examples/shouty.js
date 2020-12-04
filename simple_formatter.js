@@ -84,19 +84,19 @@ class SimpleFormatter extends Formatter {
             } else if (envelope.testStepStarted) {
                 const { gherkinDocument, pickle, testCase } = options.eventDataCollector.getTestCaseAttempt(envelope.testStepStarted.testCaseStartedId);
 
-                const pickleStep = getPickleStepMap(pickle);
+                const pickleStepMap = getPickleStepMap(pickle);
                 const gherkinStepMap = getGherkinStepMap(gherkinDocument);
 
                 this.logprops(envelope, "envelope");
                 this.logprops(envelope.testStepStarted, "testStepStarted");
                 this.logprops(options.eventDataCollector.getTestCaseAttempt(envelope.testStepStarted.testCaseStartedId), "testCaseAttempt");
-                this.logprops(pickleStep, "pickleStep");
+                this.logprops(pickleStepMap, "pickleStep");
                 this.logprops(gherkinStepMap, "gherkinStepMap");
                 this.logprops(testCase, "testCase");
 
                 if (testCase.testSteps[1].pickleStepId !== '') {
-                    const keyword = getStepKeyword({pickleStep, gherkinStepMap});
-                    this.logn(`${this.color(keyword.trim(), 'bold')} ${pickleStep.text}`, 4);
+                    const keyword = getStepKeyword({pickleStep: pickleStepMap, gherkinStepMap});
+                    this.logn(`${this.color(keyword.trim(), 'bold')} ${pickleStepMap.text}`, 4);
                 }
 
                 // DATA TABLES
