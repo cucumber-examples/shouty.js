@@ -86,17 +86,15 @@ class SimpleFormatter extends Formatter {
 
                 const pickleStepMap = getPickleStepMap(pickle);
                 const gherkinStepMap = getGherkinStepMap(gherkinDocument);
+                const testCaseStartedId = envelope.testStepStarted.testCaseStartedId;
+                const testStepId = envelope.testStepStarted.testStepId;
+                const testStep = testCase.testSteps.find(item => item.id === testStepId);
 
-                this.logprops(envelope, "envelope");
-                this.logprops(envelope.testStepStarted, "testStepStarted");
-                this.logprops(options.eventDataCollector.getTestCaseAttempt(envelope.testStepStarted.testCaseStartedId), "testCaseAttempt");
-                this.logprops(pickleStepMap, "pickleStep");
-                this.logprops(gherkinStepMap, "gherkinStepMap");
-                this.logprops(testCase, "testCase");
-
-                if (testCase.testSteps[1].pickleStepId !== '') {
-                    const keyword = getStepKeyword({pickleStep: pickleStepMap, gherkinStepMap});
-                    this.logn(`${this.color(keyword.trim(), 'bold')} ${pickleStepMap.text}`, 4);
+                if (testStep.pickleStepId !== ''){
+                    const pickleStep = pickleStepMap[testStep.pickleStepId];
+                    const astNodeId = pickleStep.astNodeIds[0];
+                    const gherkinStep = gherkinStepMap[astNodeId];
+                    this.logn(`${this.color(gherkinStep.keyword.trim(), 'bold')} ${gherkinStep.text}`, 4);
                 }
 
                 // DATA TABLES
@@ -112,8 +110,9 @@ class SimpleFormatter extends Formatter {
                 //     }
                 // });
             } else if (envelope.testStepFinished) {
-                //    const { result: { status, exception } } = event;
-                //
+                this.logprops(envelope.testStepFinished);
+                this.logprops(envelope.testStepFinished.testStepResult);
+
                 //    if (status !== 'passed') {
                 //        this.logn(options.colorFns[status](`${marks[status]} ${status}`), 4);
                 //    }
@@ -143,6 +142,23 @@ class SimpleFormatter extends Formatter {
         }
 
         this.logn("-----------------")
+    }
+
+    logpropprops(obj, name) {
+
+        this.logn("***************")
+        if (name) {
+            this.logn(`*** START: Properties of ${name}`)
+        }
+
+        for(var propertyName in obj) {
+            this.logprops(obj[propertyName], `${propertyName}`);
+        }
+
+        if (name) {
+            this.logn(`*** END: Properties of ${name}`)
+        }
+        this.logn("***************")
     }
 
     //logTestCaseFinished(testCaseFinished) {
