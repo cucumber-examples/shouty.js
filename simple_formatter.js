@@ -1,5 +1,6 @@
 const {getGherkinScenarioLocationMap, getGherkinScenarioMap, getGherkinStepMap} = require('@cucumber/cucumber/lib/formatter/helpers/gherkin_document_parser');
 const {getPickleStepMap, getStepKeyword} = require('@cucumber/cucumber/lib/formatter/helpers/pickle_parser');
+const { doesHaveValue } = require('@cucumber/cucumber/lib/value_checker');
 
 const { Formatter, formatterHelpers, Status } = require('@cucumber/cucumber')
 const { cross, tick } = require('figures');
@@ -110,17 +111,17 @@ class SimpleFormatter extends Formatter {
                 //     }
                 // });
             } else if (envelope.testStepFinished) {
-                this.logprops(envelope.testStepFinished);
-                this.logprops(envelope.testStepFinished.testStepResult);
+                const { message, status } = envelope.testStepFinished.testStepResult;
 
-                //    if (status !== 'passed') {
-                //        this.logn(options.colorFns[status](`${marks[status]} ${status}`), 4);
-                //    }
-                //
-                //    if (exception) {
-                //        const error = formatterHelpers.formatError(exception, options.colorFns);
-                //        this.logn(error, 6);
-                //    }
+                const statusName = Status[status].toLowerCase();
+                if (statusName !== 'passed') {
+                   this.logn(options.colorFns[status](`${marks[statusName]} ${statusName}`), 4);
+                }
+
+                if (doesHaveValue(message)) {
+                   //const error = formatterHelpers.formatError(exception, options.colorFns);
+                   this.logn(message, 6);
+                }
             } else if (envelope.testRunFinished) {
                 //    const noptions = Object.create(options, { eventBroadcaster: { value: { on: () => { } } } });
                 //    const formatter = new SummaryFormatter(noptions);
