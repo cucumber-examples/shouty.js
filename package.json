@@ -37,6 +37,9 @@
     "@cucumber/cucumber": "^7.0.0-rc.0",
     "mocha": "^5.2.0",
     "npm-run-all": "^4.1.2",
-    "npm-watch": "^0.6.0"
+    "npm-watch": "^0.7.0"
+  },
+  "dependencies": {
+    "fsevents": "^2.2.1"
   }
 }

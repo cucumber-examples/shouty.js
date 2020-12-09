@@ -4,7 +4,7 @@ const { doesHaveValue } = require('@cucumber/cucumber/lib/value_checker');
 
 const { Formatter, formatterHelpers, Status } = require('@cucumber/cucumber')
 const { cross, tick } = require('figures');
-const Table = require('cli-table3');
+// const Table = require('cli-table3');
 const colors = require('colors');
 const { EOL: n } = require('os');
 
@@ -50,9 +50,10 @@ class SimpleFormatter extends Formatter {
     /** @param {Options} options */
     constructor(options) {
         super(options)
-        this.colorsEnabled = options.colorsEnabled;
+        this.colorsEnabled = true; //options.colorsEnabled;
         this.descriptionEnabled = options.descriptionEnabled;
 
+        // console.log(options.colorFns);
         options.eventBroadcaster.on('envelope', (envelope) => {
             if (envelope.testCaseStarted) {
                 const { gherkinDocument, pickle } = options.eventDataCollector.getTestCaseAttempt(envelope.testCaseStarted.id);
@@ -112,15 +113,15 @@ class SimpleFormatter extends Formatter {
                 // });
             } else if (envelope.testStepFinished) {
                 const { message, status } = envelope.testStepFinished.testStepResult;
+                //
+                if (status !== Status.PASSED) {
+                    const statusName = Status[status].toLowerCase();
+                    this.logn(options.colorFns.forStatus(status)(` ${marks[statusName]} ${statusName}`), 4);
 
-                const statusName = Status[status].toLowerCase();
-                if (statusName !== 'passed') {
-                   this.logn(options.colorFns[status](`${marks[statusName]} ${statusName}`), 4);
-                }
-
-                if (doesHaveValue(message)) {
-                   //const error = formatterHelpers.formatError(exception, options.colorFns);
-                   this.logn(message, 6);
+                    if (doesHaveValue(message)) {
+                       const error = formatterHelpers.formatError(message, options.colorFns);
+                       this.logn(error, 6);
+                    }
                 }
             } else if (envelope.testRunFinished) {
                 //    const noptions = Object.create(options, { eventBroadcaster: { value: { on: () => { } } } });
