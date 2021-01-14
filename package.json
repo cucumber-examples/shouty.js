@@ -15,7 +15,7 @@
   },
   "scripts": {
     "mocha": "mocha",
-    "cucumber": "cucumber-js",
+    "cucumber": "cucumber-js -f @cucumber/pretty-formatter",
     "test": "npm-run-all --silent -c mocha cucumber",
     "watch": "npm-watch"
   },
@@ -34,7 +34,8 @@
   },
   "homepage": "https://github.com/cucumber-ltd/shouty.js",
   "devDependencies": {
-    "@cucumber/cucumber": "^7.0.0-rc.0",
+    "@cucumber/cucumber": "latest",
+    "@cucumber/pretty-formatter": "latest",
     "mocha": "^5.2.0",
     "npm-run-all": "^4.1.2",
     "npm-watch": "^0.6.0"
