@@ -1,14 +1,10 @@
 const assert = require('assert')
-const { Before, Given, When, Then } = require('@cucumber/cucumber')
+const { Given, When, Then } = require('@cucumber/cucumber')
 const Shouty = require('../../lib/shouty')
 const Coordinate = require('../../lib/coordinate')
 
 const ARBITARY_MESSAGE = 'Hello, world'
-let shouty
-
-Before(function() {
-  shouty = new Shouty()
-})
+let shouty = new Shouty()
 
 Given('Lucy is at {int}, {int}', function (x, y) {
   shouty.setLocation('Lucy', new Coordinate(x, y))
